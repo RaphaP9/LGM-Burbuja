@@ -26,6 +26,7 @@ public class NewUIInput : UIInput
     public override bool GetPauseDown()
     {
         if (!CanProcessInput()) return false;
+        if (InputOnCooldown()) return false;
 
         bool pauseInput = playerInputActions.UI.Pause.WasPerformedThisFrame();
         return pauseInput;

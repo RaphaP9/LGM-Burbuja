@@ -15,14 +15,14 @@ public class AudioPauseHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        //PauseManager.OnGamePaused += PauseManager_OnGamePaused;
-        //PauseManager.OnGameResumed += PauseManager_OnGameResumed;
+        PauseManager.OnGamePaused += PauseManager_OnGamePaused;
+        PauseManager.OnGameResumed += PauseManager_OnGameResumed;
     }
 
     private void OnDisable()
     {
-        //PauseManager.OnGamePaused -= PauseManager_OnGamePaused;
-        //PauseManager.OnGameResumed -= PauseManager_OnGameResumed;
+        PauseManager.OnGamePaused -= PauseManager_OnGamePaused;
+        PauseManager.OnGameResumed -= PauseManager_OnGameResumed;
     }
 
     private void PauseAudioSources()

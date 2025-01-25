@@ -24,14 +24,4 @@ public class PausableSFXManager : SFXManager
             Destroy(gameObject);
         }
     }
-
-    private void OnEnable()
-    {
-        
-    }
-
-    private void OnDisable()
-    {
-        
-    }
 }
