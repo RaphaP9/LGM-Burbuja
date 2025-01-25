@@ -49,11 +49,14 @@ public class PlayerDash : MonoBehaviour
     private void OnEnable()
     {
         PlayerJump.OnPlayerJump += PlayerJump_OnPlayerJump;
+        PlayerBubbleHandler.OnBubbleAttach += PlayerBubbleHandler_OnBubbleAttach;
+
     }
 
     private void OnDisable()
     {
         PlayerJump.OnPlayerJump -= PlayerJump_OnPlayerJump;
+        PlayerBubbleHandler.OnBubbleAttach -= PlayerBubbleHandler_OnBubbleAttach;
     }
 
 
@@ -172,6 +175,11 @@ public class PlayerDash : MonoBehaviour
     private bool HasDashesLeft() => dashesPerformed < dashLimit;
 
     private void PlayerJump_OnPlayerJump(object sender, PlayerJump.OnPlayerJumpEventArgs e)
+    {
+        StopDash();
+    }
+
+    private void PlayerBubbleHandler_OnBubbleAttach(object sender, EventArgs e)
     {
         StopDash();
     }
