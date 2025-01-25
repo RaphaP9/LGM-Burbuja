@@ -17,6 +17,10 @@ public class NewUIInput : UIInput
         playerInputActions.UI.Enable();
     }
 
+    private void OnDisable()
+    {
+        playerInputActions.UI.Disable();
+    }
 
     public override bool CanProcessInput()
     {

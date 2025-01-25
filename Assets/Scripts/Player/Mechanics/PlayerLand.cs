@@ -45,10 +45,9 @@ public class PlayerLand : MonoBehaviour
         InitializeVariables();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         HandleLandStates();
-
         UpdateLastNonZeroVelocityY();
     }
 
@@ -95,8 +94,6 @@ public class PlayerLand : MonoBehaviour
         {
             float landHeight = CalculateLandHeight(lastNonZeroVelocityY, _rigidbody2D.gravityScale * playerGravityController.GravityMultiplier * playerGravityController. FallMultiplier);
 
-            if (landHeight <= 0f) return;
-
             if (HasSurpassedThreshold()) OnPlayerLand?.Invoke(this, new OnPlayerLandEventArgs { landHeight = landHeight});
 
             ResetTimer();
@@ -132,7 +129,8 @@ public class PlayerLand : MonoBehaviour
 
     private bool HasSurpassedThreshold()
     {
-        return lastNonZeroVelocityY <= CalculateLandVelocity(landDetectionHeightThreshold, Physics.gravity.y * playerGravityController.GravityMultiplier * playerGravityController.FallMultiplier);
+        return true;
+        //return lastNonZeroVelocityY <= CalculateLandVelocity(landDetectionHeightThreshold, Physics.gravity.y * playerGravityController.GravityMultiplier * playerGravityController.FallMultiplier);
     }
 
     private void ResetTimer() => timer = 0f;

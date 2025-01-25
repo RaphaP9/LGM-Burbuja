@@ -18,11 +18,11 @@ public class PlayerDash : MonoBehaviour
     [SerializeField, Range(0f, 50f)] private float dashResistance;
     [Space]
     [SerializeField] private bool disableGravity;
-    [SerializeField] private bool oneDashPerGrounded;
+    [SerializeField,Range(0,3)] private int dashLimit;
 
     private float dashCooldownTimer;
     private float dashPerformTimer;
-    private bool hasTouchedGround;
+
     public bool IsDashing { get; private set; }
 
     private Rigidbody2D _rigidbody2D;
@@ -32,13 +32,21 @@ public class PlayerDash : MonoBehaviour
     private float previousGravityScale;
     private float currentDashDirection;
 
+    private int dashesPerformed;
+
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
+    private void Start()
+    {
+        SetDashesPerformed(0);
+    }
+
     private void Update()
     {
+        HandleDashCooldown();
         DashUpdateLogic();
         CheckTouchedGround();
     }
@@ -51,15 +59,21 @@ public class PlayerDash : MonoBehaviour
 
     private void DashUpdateLogic()
     {
-        if (dashCooldownTimer > 0) dashCooldownTimer -= Time.deltaTime;
+        
 
         if (dashPerformTimer > 0) dashPerformTimer -= Time.deltaTime;
         else if (IsDashing) StopDash();
 
-        if (oneDashPerGrounded && !hasTouchedGround) return;
+        if (!HasDashesLeft()) return;
 
         if (DashPressed && dashCooldownTimer <= 0) shouldDash = true;
     }
+
+    private void HandleDashCooldown()
+    {
+        if (dashCooldownTimer > 0 && !IsDashing) dashCooldownTimer -= Time.deltaTime;
+    }
+
     private void DashFixedUpdateLogic()
     {
         if (shouldDash)
@@ -68,7 +82,8 @@ public class PlayerDash : MonoBehaviour
             shouldDash = false;
             dashCooldownTimer = dashCooldown;
             dashPerformTimer = dashTime;
-            hasTouchedGround = false;
+
+            AddDashesPerformed(1);
         }
     }
 
@@ -112,7 +127,7 @@ public class PlayerDash : MonoBehaviour
         if (IsDashing) return;
         if (!checkGround.IsGrounded) return;
 
-        hasTouchedGround = true;
+        SetDashesPerformed(0);
     }
 
     private float DefineDashDirection()
@@ -120,4 +135,10 @@ public class PlayerDash : MonoBehaviour
         if (playerMovement.LastNonZeroInput == 0f) return 1f;
         return playerMovement.LastNonZeroInput;
     }
+
+    private float SetDashesPerformed(int dashesPerformed) => this.dashesPerformed = dashesPerformed;
+
+    private void AddDashesPerformed(int quantity) => dashesPerformed += quantity;
+
+    private bool HasDashesLeft() => dashesPerformed < dashLimit;
 }

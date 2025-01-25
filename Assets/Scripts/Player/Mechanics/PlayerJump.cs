@@ -20,6 +20,8 @@ public class PlayerJump : MonoBehaviour
     [SerializeField] private float jumpHeightError = 0.05f;
     [SerializeField, Range(0f, 0.5f)] private float impulseTime = 0.2f;
     [SerializeField, Range(0f, 1.5f)] private float jumpCooldown = 1f;
+    [SerializeField, Range(0f, 1.5f)] private float jumpCooldownGround = 1f;
+    [SerializeField, Range(0,3)] private int jumpLimit;
 
     private Rigidbody2D _rigidbody2D;
     private enum State { NotJumping, Impulsing, Jump }
@@ -34,8 +36,22 @@ public class PlayerJump : MonoBehaviour
 
     public bool JumpEnabled { get { return jumpEnabled; } }
 
+    private int jumpsPerformed;
+
     public static event EventHandler OnPlayerImpulsing;
     public static event EventHandler OnPlayerJump;
+
+    private void OnEnable()
+    {
+        PlayerLand.OnPlayerLand += PlayerLand_OnPlayerLand;
+    }
+
+    private void OnDisable()
+    {
+        PlayerLand.OnPlayerLand -= PlayerLand_OnPlayerLand;
+    }
+
+
 
     private void Awake()
     {
@@ -63,7 +79,7 @@ public class PlayerJump : MonoBehaviour
     private void CheckShouldJump()
     {
         if (shouldJump) return;
-        if (!checkGround.IsGrounded) return;
+        if (!HasJumpsLeft()) return;
         if (JumpOnCooldown()) return;
         if (!JumpInput) return;
 
@@ -97,8 +113,6 @@ public class PlayerJump : MonoBehaviour
             OnPlayerImpulsing?.Invoke(this, EventArgs.Empty);
         }
 
-        if (!checkGround.IsGrounded) ResetJumpCooldown();
-
         HandleJumpCooldown();
     }
 
@@ -122,7 +136,8 @@ public class PlayerJump : MonoBehaviour
         _rigidbody2D.gravityScale = 1f;
 
         Jump();
-        ResetJumpCooldown();
+        AddJumpsPerformed(1);
+        SetJumpCooldown(jumpCooldown);
 
         ResetTimer();
         SetJumpState(State.NotJumping);
@@ -131,6 +146,7 @@ public class PlayerJump : MonoBehaviour
     private void Jump()
     {
         shouldJump = false;
+        playerGravityController.ResetYVelocity();
         float jumpForce = CalculateJumpForce(jumpHeight, Physics2D.gravity.y * playerGravityController.GravityMultiplier * playerGravityController.LowJumpMultiplier);
         _rigidbody2D.AddForce(new Vector2(0f, jumpForce + jumpHeightError), ForceMode2D.Impulse);
     }
@@ -143,12 +159,24 @@ public class PlayerJump : MonoBehaviour
 
     private void HandleJumpCooldown()
     {
-        if (!checkGround.IsGrounded) return;
+        //if (!checkGround.IsGrounded) return;
 
         jumpCooldownTime = jumpCooldownTime > 0f ? jumpCooldownTime -= Time.deltaTime : 0f;
     }
 
     private bool JumpOnCooldown() => jumpCooldownTime > 0f;
-    private void ResetJumpCooldown() => jumpCooldownTime = jumpCooldown;
+    private void SetJumpCooldown(float cooldown) => jumpCooldownTime = cooldown;
     private void ResetTimer() => timer = 0f;
+
+    private float SetJumpsPerformed(int jumpsPerformed) => this.jumpsPerformed = jumpsPerformed;
+
+    private void AddJumpsPerformed(int quantity) => jumpsPerformed += quantity;
+
+    private bool HasJumpsLeft() => jumpsPerformed < jumpLimit;
+
+    private void PlayerLand_OnPlayerLand(object sender, PlayerLand.OnPlayerLandEventArgs e)
+    {
+        SetJumpsPerformed(0);
+        SetJumpCooldown(jumpCooldownGround);
+    }
 }

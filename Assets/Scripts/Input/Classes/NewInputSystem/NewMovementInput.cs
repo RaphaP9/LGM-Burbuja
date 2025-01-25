@@ -17,6 +17,11 @@ public class NewMovementInput : MovementInput
         playerInputActions.Movement.Enable();
     }
 
+    private void OnDisable()
+    {
+        playerInputActions.Movement.Disable();
+    }
+
 
     public override bool CanProcessInput()
     {
