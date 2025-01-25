@@ -23,4 +23,7 @@ public abstract class MovementInput : MonoBehaviour, IMovementInput
 
     public abstract bool CanProcessInput();
     public abstract float GetMovementInputNormalized();
+
+    public abstract bool GetJumpDown();
+    public abstract bool GetJump();
 }

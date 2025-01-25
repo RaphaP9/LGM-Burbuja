@@ -6,4 +6,6 @@ public interface IMovementInput
 {
     public bool CanProcessInput();
     public float GetMovementInputNormalized();
+    public bool GetJumpDown();
+    public bool GetJump();
 }

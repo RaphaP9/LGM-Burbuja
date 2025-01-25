@@ -8,6 +8,7 @@ public class PlayerGravityController : MonoBehaviour
     [Header("Components")]
     [SerializeField] private CheckGround checkGround;
     [SerializeField] private PlayerMovement playerHorizontalMovement;
+    [SerializeField] private MovementInput movementInput;
 
     [Header("Physic Materials")]
     [SerializeField] private PhysicsMaterial2D frictionMaterial;
@@ -67,7 +68,7 @@ public class PlayerGravityController : MonoBehaviour
             _rigidbody2D.velocity += Vector2.up * Physics.gravity.y * GravityMultiplier * (FallMultiplier - 1) * Time.fixedDeltaTime;
         }
 
-        else if (_rigidbody2D.velocity.y > 0)
+        else if (_rigidbody2D.velocity.y > 0 && (!movementInput.GetJump()))
         {
             _rigidbody2D.velocity += Vector2.up * Physics.gravity.y * GravityMultiplier * (LowJumpMultiplier - 1) * Time.fixedDeltaTime;
         }

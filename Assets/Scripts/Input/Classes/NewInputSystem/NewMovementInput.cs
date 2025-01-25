@@ -31,4 +31,22 @@ public class NewMovementInput : MovementInput
 
         return input;
     }
+
+    public override bool GetJumpDown()
+    {
+        if (!CanProcessInput()) return false;
+
+        bool input = playerInputActions.Movement.Jump.WasPerformedThisFrame();
+
+        return input;
+    }
+
+    public override bool GetJump()
+    {
+        if (!CanProcessInput()) return false;
+
+        bool input = playerInputActions.Movement.Jump.IsPressed();
+
+        return input;
+    }
 }
