@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PlayerDash : MonoBehaviour
 {
+    [Header("Enabler")]
+    [SerializeField] private bool dashEnabled;
+
 
     [Header("Components")]
     [SerializeField] private CheckGround checkGround;
@@ -39,6 +42,7 @@ public class PlayerDash : MonoBehaviour
 
     public class OnPlayerDashEventArgs : EventArgs
     {
+        public float dashDirection;
         public int dashesPerformed;
     }
 
@@ -65,6 +69,8 @@ public class PlayerDash : MonoBehaviour
 
     private void Update()
     {
+        if (!dashEnabled) return;
+
         HandleDashCooldown();
         DashUpdateLogic();
         CheckTouchedGround();
@@ -119,7 +125,7 @@ public class PlayerDash : MonoBehaviour
         _rigidbody2D.velocity = new Vector2(currentDashDirection * dashForce, 0f);
         IsDashing = true;
 
-        OnPlayerDash?.Invoke(this, new OnPlayerDashEventArgs { dashesPerformed = dashesPerformed });
+        OnPlayerDash?.Invoke(this, new OnPlayerDashEventArgs { dashesPerformed = dashesPerformed , dashDirection = currentDashDirection});
     }
 
     private void StopDash()
@@ -153,8 +159,9 @@ public class PlayerDash : MonoBehaviour
 
     private float DefineDashDirection()
     {
-        if (playerMovement.LastNonZeroInput == 0f) return 1f;
-        return playerMovement.LastNonZeroInput;
+        if (playerMovement.LastNonZeroInput != 0f) return playerMovement.LastNonZeroInput;
+        if (movementInput.GetMovementInputNormalized() != 0f) return movementInput.GetMovementInputNormalized();
+        return 1f;
     }
 
     private float SetDashesPerformed(int dashesPerformed) => this.dashesPerformed = dashesPerformed;

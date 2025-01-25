@@ -700,7 +700,7 @@ GameObject:
   - component: {fileID: 521506524}
   m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -853,7 +853,7 @@ MonoBehaviour:
   jumpHeightError: 0.05
   impulseTime: 0
   jumpCooldown: 0.15
-  jumpCooldownGround: 0.15
+  jumpCooldownGround: 0.05
   jumpLimit: 1
 --- !u!114 &521506522
 MonoBehaviour:
@@ -901,6 +901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8614593f39f94f64284bce9fd94cb59b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashEnabled: 1
   checkGround: {fileID: 969270577}
   playerMovement: {fileID: 521506519}
   movementInput: {fileID: 1254552080}
