@@ -26,10 +26,12 @@ public class PlayerBubbleHandler : MonoBehaviour
     private void Bubble_OnBubbleEnter(object sender, Bubble.OnBubbleEventArgs e)
     {
         SetCurrentBubble(e.bubble);
+        IsOnBubble = true;
     }
 
     private void Bubble_OnBubbleExit(object sender, Bubble.OnBubbleEventArgs e)
     {
         ClearCurrentBubble();
+        IsOnBubble = false;
     }
 }
