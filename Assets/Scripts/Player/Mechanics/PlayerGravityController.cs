@@ -119,6 +119,6 @@ public class PlayerGravityController : MonoBehaviour
 
     public void ResetYVelocity()
     {
-        _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0f);
+        _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, -0.01f);
     }
 }

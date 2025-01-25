@@ -22,6 +22,8 @@ public class PlayerDash : MonoBehaviour
     [Space]
     [SerializeField] private bool disableGravity;
     [SerializeField,Range(0,3)] private int dashLimit;
+    [Space]
+    [SerializeField] private bool resetDashesOnBubble;
 
     private float dashCooldownTimer;
     private float dashPerformTimer;
@@ -35,9 +37,10 @@ public class PlayerDash : MonoBehaviour
     private float previousGravityScale;
     private float currentDashDirection;
 
-    private int dashesPerformed;
+    public int dashesPerformed;
 
     public static event EventHandler<OnPlayerDashEventArgs> OnPlayerDash;
+    public static event EventHandler<OnPlayerDashEventArgs> OnPlayerDashPre;
     public static event EventHandler<OnPlayerDashEventArgs> OnPlayerDashStopped;
 
     public class OnPlayerDashEventArgs : EventArgs
@@ -92,7 +95,7 @@ public class PlayerDash : MonoBehaviour
         else if (IsDashing) StopDash();
 
         if (!HasDashesLeft()) return;
-        if (playerBubbleHandler.IsOnBubble) return;
+        //if (playerBubbleHandler.IsOnBubble) return;
 
         if (DashPressed && dashCooldownTimer <= 0) shouldDash = true;
     }
@@ -109,13 +112,15 @@ public class PlayerDash : MonoBehaviour
             AddDashesPerformed(1);
             Dash();
             shouldDash = false;
-            dashCooldownTimer = dashCooldown;
+            SetDashCooldownTimer(dashCooldown);
             dashPerformTimer = dashTime;
         }
     }
 
     public void Dash()
     {
+        OnPlayerDashPre?.Invoke(this, new OnPlayerDashEventArgs { dashesPerformed = dashesPerformed, dashDirection = currentDashDirection });
+
         if (disableGravity)
         {
             previousGravityScale = _rigidbody2D.gravityScale;
@@ -134,6 +139,8 @@ public class PlayerDash : MonoBehaviour
 
     private void StopDash()
     {
+        if (!IsDashing) return;
+        
         if (disableGravity)
         {
             _rigidbody2D.gravityScale = previousGravityScale;
@@ -174,6 +181,8 @@ public class PlayerDash : MonoBehaviour
 
     private bool HasDashesLeft() => dashesPerformed < dashLimit;
 
+    private void SetDashCooldownTimer(float cooldown) => dashCooldownTimer = cooldown;
+
     private void PlayerJump_OnPlayerJump(object sender, PlayerJump.OnPlayerJumpEventArgs e)
     {
         StopDash();
@@ -182,5 +191,9 @@ public class PlayerDash : MonoBehaviour
     private void PlayerBubbleHandler_OnBubbleAttach(object sender, EventArgs e)
     {
         StopDash();
+
+        if (!resetDashesOnBubble) return;
+        SetDashesPerformed(0);
+        SetDashCooldownTimer(dashCooldown);
     }
 }

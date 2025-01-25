@@ -31,12 +31,20 @@ public class PlayerBubbleHandler : MonoBehaviour
     {
         Bubble.OnBubbleEnter += Bubble_OnBubbleEnter;
         Bubble.OnBubbleReleased += Bubble_OnBubbleReleased;
+
+        PlayerJump.OnPlayerJump += PlayerJump_OnPlayerJump;
+        PlayerDash.OnPlayerDashPre += PlayerDash_OnPlayerDashPre;
     }
+
     private void OnDisable()
     {
         Bubble.OnBubbleEnter -= Bubble_OnBubbleEnter;
         Bubble.OnBubbleReleased -= Bubble_OnBubbleReleased;
+
+        PlayerJump.OnPlayerJump -= PlayerJump_OnPlayerJump;
+        PlayerDash.OnPlayerDashPre -= PlayerDash_OnPlayerDashPre;
     }
+
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -83,8 +91,9 @@ public class PlayerBubbleHandler : MonoBehaviour
         SetCurrentBubble(e.bubble);
         IsOnBubble = true;
 
-        playerGravityController.ResetYVelocity();
+        Debug.Log("Enter");
     }
+    private void ResetBubbleTimer() => bubbleTimer = 0f;
 
     private void Bubble_OnBubbleReleased(object sender, Bubble.OnBubbleEventArgs e)
     {
@@ -97,7 +106,44 @@ public class PlayerBubbleHandler : MonoBehaviour
         ResetBubbleTimer();
 
         OnBubbleUnattach?.Invoke(this, EventArgs.Empty);
+
+        Debug.Log("Exit");
+
+        playerGravityController.ResetYVelocity();
     }
 
-    private void ResetBubbleTimer() => bubbleTimer = 0f;
+    private void PlayerJump_OnPlayerJump(object sender, PlayerJump.OnPlayerJumpEventArgs e)
+    {
+        if (currentBubble == null) return;
+
+        _rigidbody2D.gravityScale = previousGravityScale;
+        ClearCurrentBubble();
+        IsOnBubble = false;
+
+        ResetBubbleTimer();
+
+        OnBubbleUnattach?.Invoke(this, EventArgs.Empty);
+
+        Debug.Log("Exit");
+
+        playerGravityController.ResetYVelocity();
+    }
+
+    private void PlayerDash_OnPlayerDashPre(object sender, PlayerDash.OnPlayerDashEventArgs e)
+    {
+        if (currentBubble == null) return;
+
+        _rigidbody2D.gravityScale = previousGravityScale;
+        ClearCurrentBubble();
+        IsOnBubble = false;
+
+        ResetBubbleTimer();
+
+        OnBubbleUnattach?.Invoke(this, EventArgs.Empty);
+
+        Debug.Log("Exit");
+
+        playerGravityController.ResetYVelocity();
+    }
+
 }

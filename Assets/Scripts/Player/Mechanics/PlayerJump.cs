@@ -16,11 +16,15 @@ public class PlayerJump : MonoBehaviour
 
     [Header("Jump Settings")]
     [SerializeField] private float jumpHeight = 5f;
+    [SerializeField] private float jumpHeightBubble = 5f;
     [SerializeField] private float jumpHeightError = 0.05f;
     [SerializeField, Range(0f, 0.5f)] private float impulseTime = 0.2f;
     [SerializeField, Range(0f, 1.5f)] private float jumpCooldown = 1f;
     [SerializeField, Range(0f, 1.5f)] private float jumpCooldownGround = 1f;
+    [SerializeField, Range(0f, 1.5f)] private float jumpCooldownBubble = 1f;
     [SerializeField, Range(0,3)] private int jumpLimit;
+    [Space]
+    [SerializeField] private bool resetJumpsOnBubble;
 
     private Rigidbody2D _rigidbody2D;
     private enum State { NotJumping, Impulsing, Jump }
@@ -35,7 +39,7 @@ public class PlayerJump : MonoBehaviour
 
     public bool JumpEnabled { get { return jumpEnabled; } }
 
-    private int jumpsPerformed;
+    public int jumpsPerformed;
 
     public static event EventHandler OnPlayerImpulsing;
     public static event EventHandler<OnPlayerJumpEventArgs> OnPlayerJump;
@@ -48,11 +52,13 @@ public class PlayerJump : MonoBehaviour
     private void OnEnable()
     {
         PlayerLand.OnPlayerLand += PlayerLand_OnPlayerLand;
+        PlayerBubbleHandler.OnBubbleAttach += PlayerBubbleHandler_OnBubbleAttach;
     }
 
     private void OnDisable()
     {
         PlayerLand.OnPlayerLand -= PlayerLand_OnPlayerLand;
+        PlayerBubbleHandler.OnBubbleAttach -= PlayerBubbleHandler_OnBubbleAttach;
     }
 
     private void Awake()
@@ -84,7 +90,7 @@ public class PlayerJump : MonoBehaviour
         if (!HasJumpsLeft()) return;
         if (JumpOnCooldown()) return;
         if (!JumpInput) return;
-        if (playerBubbleHandler.IsOnBubble) return;
+        //if (playerBubbleHandler.IsOnBubble) return;
 
         shouldJump = true;
     }
@@ -181,5 +187,12 @@ public class PlayerJump : MonoBehaviour
     {
         SetJumpsPerformed(0);
         SetJumpCooldown(jumpCooldownGround);
+    }
+
+    private void PlayerBubbleHandler_OnBubbleAttach(object sender, EventArgs e)
+    {
+        if (!resetJumpsOnBubble) return;
+        SetJumpsPerformed(0);
+        SetJumpCooldown(jumpCooldownBubble);
     }
 }

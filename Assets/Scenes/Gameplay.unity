@@ -969,11 +969,15 @@ MonoBehaviour:
   checkGround: {fileID: 969270577}
   movementInput: {fileID: 1254552080}
   jumpHeight: 3
+  jumpHeightBubble: 5
   jumpHeightError: 0.05
   impulseTime: 0
   jumpCooldown: 0.15
   jumpCooldownGround: 0.05
+  jumpCooldownBubble: 0.05
   jumpLimit: 1
+  resetJumpsOnBubble: 1
+  jumpsPerformed: 0
 --- !u!114 &521506522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1031,6 +1035,8 @@ MonoBehaviour:
   dashResistance: 30
   disableGravity: 1
   dashLimit: 1
+  resetDashesOnBubble: 1
+  dashesPerformed: 0
 --- !u!114 &521506525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3247,7 +3253,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -4, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.35, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1699717617}
