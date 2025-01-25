@@ -969,7 +969,7 @@ MonoBehaviour:
   checkGround: {fileID: 969270577}
   movementInput: {fileID: 1254552080}
   jumpHeight: 3
-  jumpHeightBubble: 5
+  jumpHeightBubble: 4
   jumpHeightError: 0.05
   impulseTime: 0
   jumpCooldown: 0.15

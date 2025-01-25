@@ -44,9 +44,12 @@ public class PlayerJump : MonoBehaviour
     public static event EventHandler OnPlayerImpulsing;
     public static event EventHandler<OnPlayerJumpEventArgs> OnPlayerJump;
 
+    private bool nextJumpFromBubble;
+
     public class OnPlayerJumpEventArgs : EventArgs
     {
         public int jumpsPerformed;
+        public bool fromBubble;
     }
 
     private void OnEnable()
@@ -140,7 +143,7 @@ public class PlayerJump : MonoBehaviour
 
     private void JumpLogic()
     {
-        OnPlayerJump?.Invoke(this, new OnPlayerJumpEventArgs { jumpsPerformed = jumpsPerformed});
+        OnPlayerJump?.Invoke(this, new OnPlayerJumpEventArgs { jumpsPerformed = jumpsPerformed, fromBubble = nextJumpFromBubble});
 
         _rigidbody2D.gravityScale = 1f;
 
@@ -156,8 +159,13 @@ public class PlayerJump : MonoBehaviour
     {
         shouldJump = false;
         playerGravityController.ResetYVelocity();
-        float jumpForce = CalculateJumpForce(jumpHeight, Physics2D.gravity.y * playerGravityController.GravityMultiplier * playerGravityController.LowJumpMultiplier);
+
+        float derisedJumpHeight = nextJumpFromBubble ? jumpHeightBubble : jumpHeight;
+
+        float jumpForce = CalculateJumpForce(derisedJumpHeight, Physics2D.gravity.y * playerGravityController.GravityMultiplier * playerGravityController.LowJumpMultiplier);
         _rigidbody2D.AddForce(new Vector2(0f, jumpForce + jumpHeightError), ForceMode2D.Impulse);
+
+        nextJumpFromBubble = false;
     }
 
     private float CalculateJumpForce(float jumpHeight, float gravity)
@@ -187,12 +195,17 @@ public class PlayerJump : MonoBehaviour
     {
         SetJumpsPerformed(0);
         SetJumpCooldown(jumpCooldownGround);
+
+        nextJumpFromBubble = false;
     }
 
     private void PlayerBubbleHandler_OnBubbleAttach(object sender, EventArgs e)
     {
         if (!resetJumpsOnBubble) return;
+
         SetJumpsPerformed(0);
         SetJumpCooldown(jumpCooldownBubble);
+
+        nextJumpFromBubble = true;
     }
 }
