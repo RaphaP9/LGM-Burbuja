@@ -853,7 +853,7 @@ MonoBehaviour:
   jumpHeightError: 0.05
   impulseTime: 0
   jumpCooldown: 0.15
-  jumpCooldownGround: 0.3
+  jumpCooldownGround: 0.15
   jumpLimit: 1
 --- !u!114 &521506522
 MonoBehaviour:

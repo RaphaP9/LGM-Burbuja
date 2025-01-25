@@ -39,7 +39,12 @@ public class PlayerJump : MonoBehaviour
     private int jumpsPerformed;
 
     public static event EventHandler OnPlayerImpulsing;
-    public static event EventHandler OnPlayerJump;
+    public static event EventHandler<OnPlayerJumpEventArgs> OnPlayerJump;
+
+    public class OnPlayerJumpEventArgs : EventArgs
+    {
+        public int jumpsPerformed;
+    }
 
     private void OnEnable()
     {
@@ -50,8 +55,6 @@ public class PlayerJump : MonoBehaviour
     {
         PlayerLand.OnPlayerLand -= PlayerLand_OnPlayerLand;
     }
-
-
 
     private void Awake()
     {
@@ -131,12 +134,12 @@ public class PlayerJump : MonoBehaviour
 
     private void JumpLogic()
     {
-        OnPlayerJump?.Invoke(this, EventArgs.Empty);
+        OnPlayerJump?.Invoke(this, new OnPlayerJumpEventArgs { jumpsPerformed = jumpsPerformed});
 
         _rigidbody2D.gravityScale = 1f;
 
-        Jump();
         AddJumpsPerformed(1);
+        Jump();
         SetJumpCooldown(jumpCooldown);
 
         ResetTimer();

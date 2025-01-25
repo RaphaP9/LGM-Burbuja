@@ -34,6 +34,25 @@ public class PlayerDash : MonoBehaviour
 
     private int dashesPerformed;
 
+    public static event EventHandler<OnPlayerDashEventArgs> OnPlayerDash;
+    public static event EventHandler<OnPlayerDashEventArgs> OnPlayerDashStopped;
+
+    public class OnPlayerDashEventArgs : EventArgs
+    {
+        public int dashesPerformed;
+    }
+
+    private void OnEnable()
+    {
+        PlayerJump.OnPlayerJump += PlayerJump_OnPlayerJump;
+    }
+
+    private void OnDisable()
+    {
+        PlayerJump.OnPlayerJump -= PlayerJump_OnPlayerJump;
+    }
+
+
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -60,7 +79,6 @@ public class PlayerDash : MonoBehaviour
     private void DashUpdateLogic()
     {
         
-
         if (dashPerformTimer > 0) dashPerformTimer -= Time.deltaTime;
         else if (IsDashing) StopDash();
 
@@ -78,12 +96,11 @@ public class PlayerDash : MonoBehaviour
     {
         if (shouldDash)
         {
+            AddDashesPerformed(1);
             Dash();
             shouldDash = false;
             dashCooldownTimer = dashCooldown;
             dashPerformTimer = dashTime;
-
-            AddDashesPerformed(1);
         }
     }
 
@@ -101,6 +118,8 @@ public class PlayerDash : MonoBehaviour
 
         _rigidbody2D.velocity = new Vector2(currentDashDirection * dashForce, 0f);
         IsDashing = true;
+
+        OnPlayerDash?.Invoke(this, new OnPlayerDashEventArgs { dashesPerformed = dashesPerformed });
     }
 
     private void StopDash()
@@ -112,6 +131,8 @@ public class PlayerDash : MonoBehaviour
 
         _rigidbody2D.velocity = new Vector2(0f, _rigidbody2D.velocity.y);
         IsDashing = false;
+
+        OnPlayerDashStopped?.Invoke(this, new OnPlayerDashEventArgs { dashesPerformed = dashesPerformed });
     }
 
     private void DashResistance()
@@ -141,4 +162,9 @@ public class PlayerDash : MonoBehaviour
     private void AddDashesPerformed(int quantity) => dashesPerformed += quantity;
 
     private bool HasDashesLeft() => dashesPerformed < dashLimit;
+
+    private void PlayerJump_OnPlayerJump(object sender, PlayerJump.OnPlayerJumpEventArgs e)
+    {
+        StopDash();
+    }
 }
