@@ -15,9 +15,9 @@ public class PlayerGravityController : MonoBehaviour
     [SerializeField] private PhysicsMaterial2D frictionlessMaterial;
 
     [Header("Gravity Settings")]
-    [SerializeField, Range(0.5f, 2f)] private float gravityMultiplier = 1f;
-    [SerializeField, Range(0.5f, 3f)] private float fallMultiplier;
-    [SerializeField, Range(0.5f, 3f)] private float lowJumpMultiplier;
+    [SerializeField, Range(0.5f, 10f)] private float gravityMultiplier = 1f;
+    [SerializeField, Range(0.5f, 10f)] private float fallMultiplier;
+    [SerializeField, Range(0.5f, 10f)] private float lowJumpMultiplier;
     [SerializeField] private bool useBetterJump;
 
     [Header("Stick To Slope Settings")]
@@ -69,7 +69,7 @@ public class PlayerGravityController : MonoBehaviour
             _rigidbody2D.velocity += Vector2.up * Physics.gravity.y * GravityMultiplier * (FallMultiplier - 1) * Time.fixedDeltaTime;
         }
 
-        else if (_rigidbody2D.velocity.y > 0 && (!(movementInput.GetJump() && useBetterJump)))
+        else if (_rigidbody2D.velocity.y > 0)
         {
             _rigidbody2D.velocity += Vector2.up * Physics.gravity.y * GravityMultiplier * (LowJumpMultiplier - 1) * Time.fixedDeltaTime;
         }
@@ -115,4 +115,8 @@ public class PlayerGravityController : MonoBehaviour
         capsulleCollider2D.sharedMaterial = frictionlessMaterial;
     }
 
+    public void ResetYVelocity()
+    {
+        _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0f);
+    }
 }

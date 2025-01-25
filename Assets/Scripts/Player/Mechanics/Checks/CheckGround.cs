@@ -23,10 +23,10 @@ public class CheckGround : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool drawRaycasts;
 
-    public bool IsGrounded;// { get; private set; } = false;
-    public bool OnSlope; // { get; private set; } = false;
-    public Vector2 SlopeNormal;// { get; private set; }
-    public float DistanceFromGround;// { get; private set; }
+    public bool IsGrounded { get; private set; } = false;
+    public bool OnSlope { get; private set; } = false;
+    public Vector2 SlopeNormal { get; private set; }
+    public float DistanceFromGround { get; private set; }
 
     private void FixedUpdate()
     {

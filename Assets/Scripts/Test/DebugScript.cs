@@ -57,16 +57,16 @@ public class DebugScript : MonoBehaviour
 
     private void PlayerJump_OnPlayerJump(object sender, EventArgs e)
     {
-        Debug.Log("Jump");
+        //Debug.Log("Jump");
     }
     private void PlayerFall_OnPlayerFall(object sender, EventArgs e)
     {
-        Debug.Log("Fall");
+        //Debug.Log("Fall");
     }
 
     private void PlayerLand_OnPlayerLand(object sender, PlayerLand.OnPlayerLandEventArgs e)
     {
-        Debug.Log("Land");
+        //Debug.Log("Land");
     }
 
 }

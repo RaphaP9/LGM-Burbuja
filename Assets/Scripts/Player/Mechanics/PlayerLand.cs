@@ -27,6 +27,8 @@ public class PlayerLand : MonoBehaviour
 
     public static event EventHandler<OnPlayerLandEventArgs> OnPlayerLand;
 
+    private float lastNonZeroVelocityY = 0f;
+
     public class OnPlayerLandEventArgs : EventArgs
     {
         public float landHeight;
@@ -43,9 +45,11 @@ public class PlayerLand : MonoBehaviour
         InitializeVariables();
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         HandleLandStates();
+
+        UpdateLastNonZeroVelocityY();
     }
 
     private void SetSingleton()
@@ -89,7 +93,8 @@ public class PlayerLand : MonoBehaviour
 
         if (!previouslyGrounded && checkGround.IsGrounded)
         {
-            float landHeight = CalculateLandHeight(_rigidbody2D.velocity.y, _rigidbody2D.gravityScale * playerGravityController.GravityMultiplier * playerGravityController. FallMultiplier);
+            float landHeight = CalculateLandHeight(lastNonZeroVelocityY, _rigidbody2D.gravityScale * playerGravityController.GravityMultiplier * playerGravityController. FallMultiplier);
+
             if (landHeight <= 0f) return;
 
             if (HasSurpassedThreshold()) OnPlayerLand?.Invoke(this, new OnPlayerLandEventArgs { landHeight = landHeight});
@@ -125,6 +130,15 @@ public class PlayerLand : MonoBehaviour
         return landHeight;
     }
 
-    private bool HasSurpassedThreshold() => _rigidbody2D.velocity.y <= CalculateLandVelocity(landDetectionHeightThreshold, Physics.gravity.y * playerGravityController.GravityMultiplier * playerGravityController.FallMultiplier);
+    private bool HasSurpassedThreshold()
+    {
+        return lastNonZeroVelocityY <= CalculateLandVelocity(landDetectionHeightThreshold, Physics.gravity.y * playerGravityController.GravityMultiplier * playerGravityController.FallMultiplier);
+    }
+
     private void ResetTimer() => timer = 0f;
+
+    private void UpdateLastNonZeroVelocityY()
+    {
+        lastNonZeroVelocityY = _rigidbody2D.velocity.y;
+    }
 }

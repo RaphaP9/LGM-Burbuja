@@ -49,4 +49,13 @@ public class NewMovementInput : MovementInput
 
         return input;
     }
+
+    public override bool GetDashDown()
+    {
+        if (!CanProcessInput()) return false;
+
+        bool input = playerInputActions.Movement.Dash.WasPerformedThisFrame();
+
+        return input;
+    }
 }

@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [Space]
     [SerializeField] private CheckGround checkGround;
     [SerializeField] private CheckWall checkWall;
+    [SerializeField] private PlayerDash playerDash;
 
     [Header("Movement Settings")]
     [SerializeField,Range(1f,10f)] private float walkSpeed;
@@ -109,6 +110,7 @@ public class PlayerMovement : MonoBehaviour
         if (DirectionInput == 0f) return false;
         if (checkWall.HitWall) return false;
 
+
         return true;
     }
     private void SmoothSpeed()
@@ -156,6 +158,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void ApplyMovement()
     {
+        if (playerDash.IsDashing) return;
+
         _rigidbody2D.velocity = new Vector2(FinalMoveValue, _rigidbody2D.velocity.y);
     }
 

@@ -132,7 +132,7 @@ public class PlayerJump : MonoBehaviour
     {
         shouldJump = false;
         float jumpForce = CalculateJumpForce(jumpHeight, Physics2D.gravity.y * playerGravityController.GravityMultiplier * playerGravityController.LowJumpMultiplier);
-        _rigidbody2D.AddForce(new Vector2(0f, Mathf.Sqrt(playerGravityController.GravityMultiplier)*jumpForce/playerGravityController.LowJumpMultiplier + jumpHeightError), ForceMode2D.Impulse);
+        _rigidbody2D.AddForce(new Vector2(0f, jumpForce + jumpHeightError), ForceMode2D.Impulse);
     }
 
     private float CalculateJumpForce(float jumpHeight, float gravity)
