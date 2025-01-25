@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     public float DirectionInput => movementInput.GetMovementInputNormalized();
 
-    private float desiredSpeed;
+    public float DesiredSpeed {get;private set; }
     private float smoothCurrentSpeed;
 
     private float smoothDirectionInput;
@@ -97,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
     private void CalculateDesiredSpeed()
     {
         float moveSpeed = RestrictedMovement() ? walkSpeed : sprintSpeed;
-        desiredSpeed = CanMove() ? moveSpeed : 0f;
+        DesiredSpeed = CanMove() ? moveSpeed : 0f;
     }
 
     private bool RestrictedMovement()
@@ -116,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void SmoothSpeed()
     {
-        smoothCurrentSpeed = Mathf.Lerp(smoothCurrentSpeed, desiredSpeed, Time.deltaTime * smoothVelocityFactor);
+        smoothCurrentSpeed = Mathf.Lerp(smoothCurrentSpeed, DesiredSpeed, Time.deltaTime * smoothVelocityFactor);
     }
 
     private void CalculateLastNonZeroDirectionInput() => LastNonZeroInput = DirectionInput != 0f ? DirectionInput : LastNonZeroInput;

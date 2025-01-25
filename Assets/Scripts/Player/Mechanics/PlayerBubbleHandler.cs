@@ -83,6 +83,7 @@ public class PlayerBubbleHandler : MonoBehaviour
         SetCurrentBubble(e.bubble);
         IsOnBubble = true;
 
+        playerGravityController.ResetYVelocity();
     }
 
     private void Bubble_OnBubbleReleased(object sender, Bubble.OnBubbleEventArgs e)
