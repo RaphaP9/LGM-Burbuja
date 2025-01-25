@@ -9,12 +9,12 @@ public class PausableSFXManager : SFXManager
 
     private void OnEnable()
     {
-        DebugScript.OnPlaySampleAudio += DebugScript_OnPlaySampleAudio;
+        
     }
 
     private void OnDisable()
     {
-        DebugScript.OnPlaySampleAudio -= DebugScript_OnPlaySampleAudio;
+        
     }
 
     protected override void Awake()
@@ -36,8 +36,5 @@ public class PausableSFXManager : SFXManager
         }
     }
 
-    private void DebugScript_OnPlaySampleAudio(object sender, EventArgs e)
-    {
-        PlaySound(SFXPool.bubbleExplode);
-    }
+
 }

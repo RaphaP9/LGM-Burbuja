@@ -35,4 +35,5 @@ public class UnpausableSFXManager : SFXManager
             Destroy(gameObject);
         }
     }
+
 }
