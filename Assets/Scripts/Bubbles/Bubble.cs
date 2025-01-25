@@ -20,14 +20,6 @@ public class Bubble : MonoBehaviour
         public Bubble bubble;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            ReleaseBubble();
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.gameObject.CompareTag(PLAYER_TAG)) return;
