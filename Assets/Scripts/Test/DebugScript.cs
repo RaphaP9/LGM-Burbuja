@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DebugScript : MonoBehaviour
 {
+    public static event EventHandler OnPlaySampleAudio;
+
     private void OnEnable()
     {
         PauseManager.OnGamePaused += PauseManager_OnGamePaused;
@@ -32,6 +35,14 @@ public class DebugScript : MonoBehaviour
 
     private void Update()
     {
-        
+        CheckPlaySampleAudio();
+    }
+
+    private void CheckPlaySampleAudio()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            OnPlaySampleAudio?.Invoke(this,EventArgs.Empty);
+        }
     }
 }

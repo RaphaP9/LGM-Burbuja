@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,9 @@ public class AudioPauseHandler : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField] private bool debug;
+
+    public static event EventHandler OnPauseAudio;
+    public static event EventHandler OnResumeAudio;
 
     private void OnEnable()
     {
@@ -54,58 +58,16 @@ public class AudioPauseHandler : MonoBehaviour
         UnPauseAudioSources();
     }
 
-    private void PauseAllTemporalSFX()
-    {
-        if (!enable) return;
-
-        TemporalSFXController[] temporalSFXControllers = FindObjectsOfType<TemporalSFXController>();
-
-        foreach (TemporalSFXController temporalSFXController in temporalSFXControllers)
-        {
-            if (!temporalSFXController.Pausable) continue;
-
-            AudioSource audioSource = temporalSFXController.GetComponent<AudioSource>();
-
-            if (!audioSource)
-            {
-                if (debug) Debug.LogWarning("TemporalSFX does not have an audiosource component");
-                continue;
-            }
-
-            audioSource.Pause();
-        }
-    }
-
-    private void ResumeAllTemporalSFX()
-    {
-        if (!enable) return;
-
-        TemporalSFXController[] temporalSFXControllers = FindObjectsOfType<TemporalSFXController>();
-
-        foreach (TemporalSFXController temporalSFXController in temporalSFXControllers)
-        {
-            if (!temporalSFXController.Pausable) continue;
-
-            AudioSource audioSource = temporalSFXController.GetComponent<AudioSource>();
-
-            if (!audioSource)
-            {
-                if (debug) Debug.LogWarning("TemporalSFX does not have an audiosource component");
-                continue;
-            }
-
-            audioSource.UnPause();
-        }
-    }
+   
     private void PauseManager_OnGamePaused(object sender, System.EventArgs e)
     {
         PauseGlobalSFX();
-        PauseAllTemporalSFX();
+        OnPauseAudio?.Invoke(this, EventArgs.Empty);
     }
 
     private void PauseManager_OnGameResumed(object sender, System.EventArgs e)
     {
         ResumeGlobalSFX();
-        ResumeAllTemporalSFX();
+        OnResumeAudio?.Invoke(this, EventArgs.Empty);
     }
 }

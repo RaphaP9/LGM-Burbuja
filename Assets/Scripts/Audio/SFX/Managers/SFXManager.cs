@@ -23,7 +23,7 @@ public class SFXManager : MonoBehaviour
 
     protected AudioSource audioSource;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         audioSource = GetComponent<AudioSource>();
     }
