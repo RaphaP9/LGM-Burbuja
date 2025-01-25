@@ -12,6 +12,7 @@ public class DebugScript : MonoBehaviour
         PauseManager.OnGamePaused += PauseManager_OnGamePaused;
         PauseManager.OnGameResumed += PauseManager_OnGameResumed;
 
+        PlayerJump.OnPlayerJump += PlayerJump_OnPlayerJump;
         PlayerFall.OnPlayerFall += PlayerFall_OnPlayerFall;
         PlayerLand.OnPlayerLand += PlayerLand_OnPlayerLand;
     }
@@ -21,8 +22,9 @@ public class DebugScript : MonoBehaviour
         PauseManager.OnGamePaused -= PauseManager_OnGamePaused;
         PauseManager.OnGameResumed -= PauseManager_OnGameResumed;
 
-        PlayerFall.OnPlayerFall += PlayerFall_OnPlayerFall;
-        PlayerLand.OnPlayerLand += PlayerLand_OnPlayerLand;
+        PlayerJump.OnPlayerJump -= PlayerJump_OnPlayerJump;
+        PlayerFall.OnPlayerFall -= PlayerFall_OnPlayerFall;
+        PlayerLand.OnPlayerLand -= PlayerLand_OnPlayerLand;
     }
 
     private void PauseManager_OnGameResumed(object sender, System.EventArgs e)
@@ -51,6 +53,11 @@ public class DebugScript : MonoBehaviour
         {
             OnPlaySampleAudio?.Invoke(this,EventArgs.Empty);
         }
+    }
+
+    private void PlayerJump_OnPlayerJump(object sender, EventArgs e)
+    {
+        Debug.Log("Jump");
     }
     private void PlayerFall_OnPlayerFall(object sender, EventArgs e)
     {
