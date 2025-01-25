@@ -21,12 +21,12 @@ public class PauseManager : MonoBehaviour
 
     private void OnEnable()
     {
-        //PauseUI.OnCloseFromUI += PauseUI_OnCloseFromUI;
+        PauseUI.OnCloseFromUI += PauseUI_OnCloseFromUI;
     }
 
     private void OnDisable()
     {
-        //PauseUI.OnCloseFromUI -= PauseUI_OnCloseFromUI;
+        PauseUI.OnCloseFromUI -= PauseUI_OnCloseFromUI;
         SetResumeTimeScale();
         SetGamePaused(false);
     }
@@ -82,7 +82,7 @@ public class PauseManager : MonoBehaviour
         }
         else
         {
-            if (UIManager.Instance.GetUILayersCount() <= 1) //If count is 1, the active layer is the PauseUI
+            if (UIManager.Instance.GetUILayersCount() == 1) //If count is 1, the active layer is the PauseUI
             {
                 ResumeGame();
             }
