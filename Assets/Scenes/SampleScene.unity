@@ -433,6 +433,7 @@ GameObject:
   - component: {fileID: 521506517}
   - component: {fileID: 521506518}
   - component: {fileID: 521506519}
+  - component: {fileID: 521506520}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -538,11 +539,32 @@ MonoBehaviour:
   walkSpeed: 2
   sprintSpeed: 4
   flattenSpeedOnSlopes: 0
-  flattenSpeedThreshold: 0
-  smoothInputFactor: 10
-  smoothVelocityFactor: 10
-  smoothDirectionFactor: 10
-  smoothDirectionInput: 0
+  flattenSpeedThreshold: 3
+  smoothInputFactor: 35
+  smoothVelocityFactor: 35
+  smoothDirectionFactor: 35
+--- !u!114 &521506520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521506514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b40b22bc6df58894fb36a175e019b090, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkGround: {fileID: 969270577}
+  playerHorizontalMovement: {fileID: 521506519}
+  frictionMaterial: {fileID: 6200000, guid: 02d1f3796673bf54f82e464d74c3f71f, type: 2}
+  frictionlessMaterial: {fileID: 6200000, guid: 293b32f9fd7df234790f582fc8f1b08f, type: 2}
+  gravityMultiplier: 1
+  fallMultiplier: 1
+  lowJumpMultiplier: 1
+  enableStickToSlopeForce: 1
+  stickToSlopeSpeedThreshold: 3
+  stickToSlopeForce: 50
 --- !u!1 &651349405
 GameObject:
   m_ObjectHideFlags: 0

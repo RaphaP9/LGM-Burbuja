@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     private float desiredSpeed;
     private float smoothCurrentSpeed;
 
-    public float smoothDirectionInput;
+    private float smoothDirectionInput;
     public float LastNonZeroInput { get; private set; }
     public float FinalMoveDir { get; private set; }
     public float SmoothFinalMoveInput { get; private set; }
@@ -45,12 +45,6 @@ public class PlayerMovement : MonoBehaviour
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         SetSingleton();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame
@@ -82,8 +76,8 @@ public class PlayerMovement : MonoBehaviour
         if (!movementEnabled) return;
 
         CalculateDesiredSpeed();
-
         SmoothSpeed();
+
         CalculateLastNonZeroDirectionInput();
         
         SmoothDirectionInput();
@@ -124,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CalculateLastNonZeroDirectionInput() => LastNonZeroInput = DirectionInput != 0f ? DirectionInput : LastNonZeroInput;
 
-    private void SmoothDirectionInput() => smoothDirectionInput = Mathf.Lerp(smoothDirectionInput, LastNonZeroInput, Time.deltaTime * smoothInputFactor);
+    private void SmoothDirectionInput() => smoothDirectionInput = Mathf.Lerp(smoothDirectionInput, DirectionInput, Time.deltaTime * smoothInputFactor);
 
     private void FlattenMovementInput()
     {
