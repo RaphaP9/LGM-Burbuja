@@ -8,10 +8,10 @@ public class PlayerDash : MonoBehaviour
     [Header("Enabler")]
     [SerializeField] private bool dashEnabled;
 
-
     [Header("Components")]
     [SerializeField] private CheckGround checkGround;
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerBubbleHandler playerBubbleHandler;
     [SerializeField] private MovementInput movementInput;
 
     [Header("Dash")]
@@ -89,6 +89,7 @@ public class PlayerDash : MonoBehaviour
         else if (IsDashing) StopDash();
 
         if (!HasDashesLeft()) return;
+        if (playerBubbleHandler.IsOnBubble) return;
 
         if (DashPressed && dashCooldownTimer <= 0) shouldDash = true;
     }

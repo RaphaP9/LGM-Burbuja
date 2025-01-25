@@ -8,6 +8,7 @@ public class PlayerGravityController : MonoBehaviour
     [Header("Components")]
     [SerializeField] private CheckGround checkGround;
     [SerializeField] private PlayerMovement playerHorizontalMovement;
+    [SerializeField] private PlayerBubbleHandler playerBubbleHandler;
     [SerializeField] private MovementInput movementInput;
 
     [Header("Physic Materials")]
@@ -63,6 +64,7 @@ public class PlayerGravityController : MonoBehaviour
     private void BetterFall()
     {
         if (checkGround.IsGrounded) return;
+        if (playerBubbleHandler.IsOnBubble) return;
 
         if (_rigidbody2D.velocity.y < 0)
         {

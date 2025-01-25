@@ -9,11 +9,10 @@ public class PlayerJump : MonoBehaviour
     [SerializeField] private bool jumpEnabled;
 
     [Header("Components")]
-    [SerializeField] private MovementInput movementInput;
-    [Space]
     [SerializeField] private PlayerGravityController playerGravityController;
-    [Space]
+    [SerializeField] private PlayerBubbleHandler playerBubbleHandler;
     [SerializeField] private CheckGround checkGround;
+    [SerializeField] private MovementInput movementInput;
 
     [Header("Jump Settings")]
     [SerializeField] private float jumpHeight = 5f;
@@ -85,6 +84,7 @@ public class PlayerJump : MonoBehaviour
         if (!HasJumpsLeft()) return;
         if (JumpOnCooldown()) return;
         if (!JumpInput) return;
+        if (playerBubbleHandler.IsOnBubble) return;
 
         shouldJump = true;
     }

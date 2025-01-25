@@ -8,17 +8,24 @@ public class Bubble : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Transform bubbleCenter;
 
-    [Header("Setting")]
-    [SerializeField,Range(1f,100f)] private float smoothInFactor;
-
     private const string PLAYER_TAG = "Player";
 
     public static event EventHandler<OnBubbleEventArgs> OnBubbleEnter;
-    public static event EventHandler<OnBubbleEventArgs> OnBubbleExit;
+    public static event EventHandler<OnBubbleEventArgs> OnBubbleReleased;
+
+    public Transform BubbleCentrer => bubbleCenter;
 
     public class OnBubbleEventArgs : EventArgs
     {
         public Bubble bubble;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            ReleaseBubble();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -28,10 +35,8 @@ public class Bubble : MonoBehaviour
         OnBubbleEnter?.Invoke(this, new OnBubbleEventArgs { bubble = this });
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void ReleaseBubble()
     {
-        if (!collision.gameObject.CompareTag(PLAYER_TAG)) return;
-
-        OnBubbleExit?.Invoke(this, new OnBubbleEventArgs { bubble = this });
+        OnBubbleReleased?.Invoke(this, new OnBubbleEventArgs { bubble = this });
     }
 }

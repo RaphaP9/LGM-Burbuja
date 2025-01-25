@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] private MovementInput movementInput;
+    [SerializeField] private PlayerBubbleHandler playerBubbleHandler;
     [Space]
     [SerializeField] private CheckGround checkGround;
     [SerializeField] private CheckWall checkWall;
@@ -159,6 +160,7 @@ public class PlayerMovement : MonoBehaviour
     private void ApplyMovement()
     {
         if (playerDash.IsDashing) return;
+        if(playerBubbleHandler.IsOnBubble) return;
 
         _rigidbody2D.velocity = new Vector2(FinalMoveValue, _rigidbody2D.velocity.y);
     }
