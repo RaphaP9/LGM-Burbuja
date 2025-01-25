@@ -435,6 +435,8 @@ GameObject:
   - component: {fileID: 521506519}
   - component: {fileID: 521506520}
   - component: {fileID: 521506521}
+  - component: {fileID: 521506522}
+  - component: {fileID: 521506523}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -564,6 +566,7 @@ MonoBehaviour:
   gravityMultiplier: 2
   fallMultiplier: 2.5
   lowJumpMultiplier: 3
+  useBetterJump: 1
   enableStickToSlopeForce: 1
   stickToSlopeSpeedThreshold: 3
   stickToSlopeForce: 50
@@ -587,6 +590,41 @@ MonoBehaviour:
   jumpHeightError: 0.05
   impulseTime: 0
   jumpCooldown: 0
+--- !u!114 &521506522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521506514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74107f0bfc8a68842ab285892ea7043b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkGround: {fileID: 969270577}
+  enableFallVelocityThreshold: 1
+  enableFallDistanceThreshold: 1
+  fallVelocityThreshold: -0.1
+  fallDistanceFromGroundThreshold: 0.01
+--- !u!114 &521506523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521506514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bf33722cea2ce34daab8db3eb74737e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerFall: {fileID: 521506522}
+  checkGround: {fileID: 969270577}
+  playerGravityController: {fileID: 521506520}
+  landDetectionHeightThreshold: 0.1
+  landRecoveryTime: 0
+  IsRecoveringFromLanding: 0
 --- !u!1 &651349405
 GameObject:
   m_ObjectHideFlags: 0

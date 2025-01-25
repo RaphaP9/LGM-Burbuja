@@ -34,8 +34,8 @@ public class PlayerJump : MonoBehaviour
 
     public bool JumpEnabled { get { return jumpEnabled; } }
 
-    public event EventHandler OnPlayerImpulsing;
-    public event EventHandler OnPlayerJump;
+    public static event EventHandler OnPlayerImpulsing;
+    public static event EventHandler OnPlayerJump;
 
     private void Awake()
     {
@@ -131,8 +131,8 @@ public class PlayerJump : MonoBehaviour
     private void Jump()
     {
         shouldJump = false;
-        float jumpForce = CalculateJumpForce(jumpHeight + jumpHeightError, Physics2D.gravity.y * playerGravityController.GravityMultiplier * playerGravityController.LowJumpMultiplier);
-        _rigidbody2D.AddForce(new Vector2(0f, Mathf.Sqrt(playerGravityController.GravityMultiplier)*jumpForce/playerGravityController.LowJumpMultiplier), ForceMode2D.Impulse);
+        float jumpForce = CalculateJumpForce(jumpHeight, Physics2D.gravity.y * playerGravityController.GravityMultiplier * playerGravityController.LowJumpMultiplier);
+        _rigidbody2D.AddForce(new Vector2(0f, Mathf.Sqrt(playerGravityController.GravityMultiplier)*jumpForce/playerGravityController.LowJumpMultiplier + jumpHeightError), ForceMode2D.Impulse);
     }
 
     private float CalculateJumpForce(float jumpHeight, float gravity)

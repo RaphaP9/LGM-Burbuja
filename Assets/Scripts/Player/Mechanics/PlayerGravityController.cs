@@ -18,6 +18,7 @@ public class PlayerGravityController : MonoBehaviour
     [SerializeField, Range(0.5f, 2f)] private float gravityMultiplier = 1f;
     [SerializeField, Range(0.5f, 3f)] private float fallMultiplier;
     [SerializeField, Range(0.5f, 3f)] private float lowJumpMultiplier;
+    [SerializeField] private bool useBetterJump;
 
     [Header("Stick To Slope Settings")]
     [SerializeField] private bool enableStickToSlopeForce;
@@ -68,7 +69,7 @@ public class PlayerGravityController : MonoBehaviour
             _rigidbody2D.velocity += Vector2.up * Physics.gravity.y * GravityMultiplier * (FallMultiplier - 1) * Time.fixedDeltaTime;
         }
 
-        else if (_rigidbody2D.velocity.y > 0 && (!movementInput.GetJump()))
+        else if (_rigidbody2D.velocity.y > 0 && (!(movementInput.GetJump() && useBetterJump)))
         {
             _rigidbody2D.velocity += Vector2.up * Physics.gravity.y * GravityMultiplier * (LowJumpMultiplier - 1) * Time.fixedDeltaTime;
         }

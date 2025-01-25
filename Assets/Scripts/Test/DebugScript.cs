@@ -11,11 +11,18 @@ public class DebugScript : MonoBehaviour
     {
         PauseManager.OnGamePaused += PauseManager_OnGamePaused;
         PauseManager.OnGameResumed += PauseManager_OnGameResumed;
+
+        PlayerFall.OnPlayerFall += PlayerFall_OnPlayerFall;
+        PlayerLand.OnPlayerLand += PlayerLand_OnPlayerLand;
     }
+
     private void OnDisable()
     {
         PauseManager.OnGamePaused -= PauseManager_OnGamePaused;
         PauseManager.OnGameResumed -= PauseManager_OnGameResumed;
+
+        PlayerFall.OnPlayerFall += PlayerFall_OnPlayerFall;
+        PlayerLand.OnPlayerLand += PlayerLand_OnPlayerLand;
     }
 
     private void PauseManager_OnGameResumed(object sender, System.EventArgs e)
@@ -45,4 +52,14 @@ public class DebugScript : MonoBehaviour
             OnPlaySampleAudio?.Invoke(this,EventArgs.Empty);
         }
     }
+    private void PlayerFall_OnPlayerFall(object sender, EventArgs e)
+    {
+        Debug.Log("Fall");
+    }
+
+    private void PlayerLand_OnPlayerLand(object sender, PlayerLand.OnPlayerLandEventArgs e)
+    {
+        Debug.Log("Land");
+    }
+
 }
