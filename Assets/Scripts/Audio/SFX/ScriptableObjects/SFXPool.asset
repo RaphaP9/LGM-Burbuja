@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7354bece74fa22c4a8b90a69f49bd718, type: 3}
   m_Name: SFXPool
   m_EditorClassIdentifier: 
-  bubbleExplode: []
+  bubbleExplode:
+  - {fileID: 8300000, guid: 4b89a2945cdec9a4d99652d87a8046cb, type: 3}

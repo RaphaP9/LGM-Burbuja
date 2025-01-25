@@ -22,5 +22,5 @@ public abstract class MovementInput : MonoBehaviour, IMovementInput
     }
 
     public abstract bool CanProcessInput();
-    public abstract Vector2 GetMovementVectorNormalized();
+    public abstract float GetMovementInputNormalized();
 }

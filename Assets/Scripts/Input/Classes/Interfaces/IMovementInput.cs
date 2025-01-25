@@ -5,5 +5,5 @@ using UnityEngine;
 public interface IMovementInput
 {
     public bool CanProcessInput();
-    public Vector2 GetMovementVectorNormalized();
+    public float GetMovementInputNormalized();
 }

@@ -23,12 +23,12 @@ public class NewMovementInput : MovementInput
         return true;
     }
 
-    public override Vector2 GetMovementVectorNormalized()
+    public override float GetMovementInputNormalized()
     {
-        if (!CanProcessInput()) return Vector2.zero;
+        if (!CanProcessInput()) return 0f;
 
-        Vector2 inputVector = playerInputActions.Movement.Move.ReadValue<Vector2>();
-        inputVector.Normalize();
-        return inputVector;
+        float input = playerInputActions.Movement.Move.ReadValue<float>();
+
+        return input;
     }
 }
