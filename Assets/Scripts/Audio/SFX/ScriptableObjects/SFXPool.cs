@@ -5,6 +5,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewSFXPoolSO", menuName = "ScriptableObjects/Audio/SFXPool")]
 public class SFXPool : ScriptableObject
 {
-    [Header("Bubbles")]
-    public AudioClip[] bubbleExplode;
+    [Header("Player")]
+    public AudioClip[] playerJump;
+    public AudioClip[] playerJumpFromBubble;
+    [Space]
+    public AudioClip[] playerDash;
+    public AudioClip[] playerDashFromBubble;
+    [Space]
+    public AudioClip[] playerLand;
+    [Space]
+    public AudioClip[] playerBubbleAttach;
 }

@@ -16,7 +16,10 @@ public class PlayerDash : MonoBehaviour
 
     [Header("Dash")]
     [SerializeField,Range(1f,10f)] private float dashDistance;
+    [SerializeField,Range(1f,10f)] private float dashDistanceFromBubble;
+    [Space]
     [SerializeField,Range(0.1f, 1f)] private float dashTime;
+    [SerializeField,Range(0.1f, 1f)] private float dashTimeFromBubble;
     [SerializeField,Range(0f, 10f)] private float dashCooldown;
     [SerializeField, Range(0f, 50f)] private float dashResistance;
     [Space]
@@ -43,23 +46,26 @@ public class PlayerDash : MonoBehaviour
     public static event EventHandler<OnPlayerDashEventArgs> OnPlayerDashPre;
     public static event EventHandler<OnPlayerDashEventArgs> OnPlayerDashStopped;
 
+    private bool nextDashFromBubble = false;
     public class OnPlayerDashEventArgs : EventArgs
     {
         public float dashDirection;
         public int dashesPerformed;
+        public bool fromBubble;
     }
 
     private void OnEnable()
     {
         PlayerJump.OnPlayerJump += PlayerJump_OnPlayerJump;
         PlayerBubbleHandler.OnBubbleAttach += PlayerBubbleHandler_OnBubbleAttach;
-
+        PlayerLand.OnPlayerLand += PlayerLand_OnPlayerLand;
     }
 
     private void OnDisable()
     {
         PlayerJump.OnPlayerJump -= PlayerJump_OnPlayerJump;
         PlayerBubbleHandler.OnBubbleAttach -= PlayerBubbleHandler_OnBubbleAttach;
+        PlayerLand.OnPlayerLand -= PlayerLand_OnPlayerLand;
     }
 
 
@@ -119,7 +125,7 @@ public class PlayerDash : MonoBehaviour
 
     public void Dash()
     {
-        OnPlayerDashPre?.Invoke(this, new OnPlayerDashEventArgs { dashesPerformed = dashesPerformed, dashDirection = currentDashDirection });
+        OnPlayerDashPre?.Invoke(this, new OnPlayerDashEventArgs { dashesPerformed = dashesPerformed, dashDirection = currentDashDirection, fromBubble = nextDashFromBubble });
 
         if (disableGravity)
         {
@@ -130,11 +136,16 @@ public class PlayerDash : MonoBehaviour
         currentDashDirection = DefineDashDirection();
 
         float dashForce = dashDistance / dashTime;
+        float dashForceFromBubble = dashDistanceFromBubble / dashTimeFromBubble;
 
-        _rigidbody2D.velocity = new Vector2(currentDashDirection * dashForce, 0f);
+        float desiredDashForce = nextDashFromBubble ? dashDistanceFromBubble : dashDistance;
+
+        _rigidbody2D.velocity = new Vector2(currentDashDirection * desiredDashForce, 0f);
         IsDashing = true;
 
-        OnPlayerDash?.Invoke(this, new OnPlayerDashEventArgs { dashesPerformed = dashesPerformed , dashDirection = currentDashDirection});
+        OnPlayerDash?.Invoke(this, new OnPlayerDashEventArgs { dashesPerformed = dashesPerformed , dashDirection = currentDashDirection, fromBubble = nextDashFromBubble });
+
+        nextDashFromBubble = false;
     }
 
     private void StopDash()
@@ -188,6 +199,11 @@ public class PlayerDash : MonoBehaviour
         StopDash();
     }
 
+    private void PlayerLand_OnPlayerLand(object sender, PlayerLand.OnPlayerLandEventArgs e)
+    {
+        nextDashFromBubble = false;
+    }
+
     private void PlayerBubbleHandler_OnBubbleAttach(object sender, EventArgs e)
     {
         StopDash();
@@ -195,5 +211,8 @@ public class PlayerDash : MonoBehaviour
         if (!resetDashesOnBubble) return;
         SetDashesPerformed(0);
         SetDashCooldownTimer(dashCooldown);
+
+        nextDashFromBubble = true;
+
     }
 }

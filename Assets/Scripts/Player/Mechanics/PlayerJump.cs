@@ -44,7 +44,7 @@ public class PlayerJump : MonoBehaviour
     public static event EventHandler OnPlayerImpulsing;
     public static event EventHandler<OnPlayerJumpEventArgs> OnPlayerJump;
 
-    private bool nextJumpFromBubble;
+    private bool nextJumpFromBubble = false;
 
     public class OnPlayerJumpEventArgs : EventArgs
     {
