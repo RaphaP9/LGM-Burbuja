@@ -6,12 +6,16 @@ public class LogListener : MonoBehaviour
 {
     private void OnEnable()
     {
+        EventCollider.OnEventColliderTrigger += EventCollider_OnEventColliderTrigger;
+
         PlayerJump.OnPlayerJump += PlayerJump_OnPlayerJump;
         PlayerDash.OnPlayerDash += PlayerDash_OnPlayerDash;
     }
 
     private void OnDisable()
     {
+        EventCollider.OnEventColliderTrigger += EventCollider_OnEventColliderTrigger;
+
         PlayerJump.OnPlayerJump -= PlayerJump_OnPlayerJump;
         PlayerDash.OnPlayerDash -= PlayerDash_OnPlayerDash;
     }
@@ -38,5 +42,10 @@ public class LogListener : MonoBehaviour
         {
             GameLogManager.Instance.Log($"Movement/Jump/Regular");
         }
+    }
+
+    private void EventCollider_OnEventColliderTrigger(object sender, EventCollider.OnEventColliderTriggerEventArgs e)
+    {
+        GameLogManager.Instance.Log($"Events/EventCollider/{e.eventID}");
     }
 }
