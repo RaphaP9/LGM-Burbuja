@@ -432,8 +432,8 @@ MonoBehaviour:
   checkGround: {fileID: 1114761904978054885}
   checkWall: {fileID: 7177696828020917465}
   playerDash: {fileID: 3290144798974216237}
-  walkSpeed: 3
-  sprintSpeed: 8
+  walkSpeed: 4
+  sprintSpeed: 10
   flattenSpeedOnSlopes: 0
   flattenSpeedThreshold: 3
   smoothInputFactor: 50
@@ -481,11 +481,11 @@ MonoBehaviour:
   playerBubbleHandler: {fileID: 227676294834691716}
   checkGround: {fileID: 1114761904978054885}
   movementInput: {fileID: 0}
-  jumpHeight: 3
+  jumpHeight: 4
   jumpHeightBubble: 6
   jumpHeightError: 0.05
   impulseTime: 0
-  jumpCooldown: 0.15
+  jumpCooldown: 0.25
   jumpCooldownGround: 0.05
   jumpCooldownBubble: 0.05
   jumpLimit: 1
@@ -542,8 +542,8 @@ MonoBehaviour:
   playerMovement: {fileID: 2383293163072000536}
   playerBubbleHandler: {fileID: 227676294834691716}
   movementInput: {fileID: 0}
-  dashDistance: 6
-  dashDistanceFromBubble: 9
+  dashDistance: 8
+  dashDistanceFromBubble: 10
   dashTime: 0.25
   dashTimeFromBubble: 0.25
   dashCooldown: 0.1

@@ -5,6 +5,8 @@ using System;
 
 public class PlayerJump : MonoBehaviour
 {
+    public static PlayerJump Instance {  get; private set; }
+
     [Header("Enabler")]
     [SerializeField] private bool jumpEnabled;
 
@@ -69,6 +71,7 @@ public class PlayerJump : MonoBehaviour
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        SetSingleton();
     }
 
     private void Start()
@@ -82,6 +85,19 @@ public class PlayerJump : MonoBehaviour
 
         CheckShouldJump();
         HandleJumpStates();
+    }
+
+    private void SetSingleton()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogWarning("There is more than one PlayerJump instance, proceding to destroy duplicate");
+            Destroy(gameObject);
+        }
     }
 
     private void InitializeVariables()
@@ -216,4 +232,5 @@ public class PlayerJump : MonoBehaviour
         if (e.fromBubble) nextJumpFromBubble = false;
     }
 
+    public void UnlockDoubleJump() => jumpLimit = 2;
 }

@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement Settings")]
     [SerializeField,Range(1f,10f)] private float walkSpeed;
-    [SerializeField,Range(1f,10f)] private float sprintSpeed;
+    [SerializeField,Range(1f,15f)] private float sprintSpeed;
     [Space]
     [SerializeField] private bool flattenSpeedOnSlopes;
     [SerializeField, Range(0f, 10f)] private float flattenSpeedThreshold;

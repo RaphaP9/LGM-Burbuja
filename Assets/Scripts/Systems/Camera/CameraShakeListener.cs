@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CameraShakeListener : MonoBehaviour
 {
-    [Header("Trash Colected Settings")]
+    [Header("Camera Shake Objects Settings")]
     [SerializeField] private List<CameraShakeObject> cameraShakeObjects;
 
     [Serializable]

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerDash : MonoBehaviour
 {
+    public static PlayerDash Instance {  get; private set; }
+
     [Header("Enabler")]
     [SerializeField] private bool dashEnabled;
 
@@ -15,8 +17,8 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] private MovementInput movementInput;
 
     [Header("Dash")]
-    [SerializeField,Range(1f,10f)] private float dashDistance;
-    [SerializeField,Range(1f,10f)] private float dashDistanceFromBubble;
+    [SerializeField,Range(1f,12f)] private float dashDistance;
+    [SerializeField,Range(1f,12f)] private float dashDistanceFromBubble;
     [Space]
     [SerializeField,Range(0.1f, 1f)] private float dashTime;
     [SerializeField,Range(0.1f, 1f)] private float dashTimeFromBubble;
@@ -72,6 +74,7 @@ public class PlayerDash : MonoBehaviour
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        SetSingleton();
     }
 
     private void Start()
@@ -92,6 +95,19 @@ public class PlayerDash : MonoBehaviour
     {
         DashFixedUpdateLogic();
         DashResistance();
+    }
+
+    private void SetSingleton()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogWarning("There is more than one PlayerDash instance, proceding to destroy duplicate");
+            Destroy(gameObject);
+        }
     }
 
     private void DashUpdateLogic()
@@ -217,4 +233,6 @@ public class PlayerDash : MonoBehaviour
         nextDashFromBubble = true;
 
     }
+
+    public void UnlockDash() => dashLimit = 1;
 }
