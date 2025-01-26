@@ -24,3 +24,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: da2e191b92cb797429f03d3e690846a4, type: 3}
   playerBubbleAttach:
   - {fileID: 8300000, guid: 878ce623093914f4f94cbce7bb2e76eb, type: 3}
+  landmark:
+  - {fileID: 8300000, guid: ff5212c06a684e04e85b80c85e90edf9, type: 3}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class LogListener : MonoBehaviour
     {
         EventCollider.OnEventColliderTrigger += EventCollider_OnEventColliderTrigger;
         Landmark.OnLandmarkTriggered += Landmark_OnLandmarkTriggered;
+        Landmark.OnLandmarkTriggeredMessage += Landmark_OnLandmarkTriggeredMessage;
+        Landmark.OnLandmarkTriggeredEnd += Landmark_OnLandmarkTriggeredEnd;
 
         PlayerJump.OnPlayerJump += PlayerJump_OnPlayerJump;
         PlayerDash.OnPlayerDash += PlayerDash_OnPlayerDash;
@@ -54,5 +57,14 @@ public class LogListener : MonoBehaviour
     {
         GameLogManager.Instance.Log($"Landmark/{e.id}");
 
+    }
+    private void Landmark_OnLandmarkTriggeredEnd(object sender, Landmark.OnLandmarkEventArgs e)
+    {
+        GameLogManager.Instance.Log($"LandmarkEnd/{e.id}");
+    }
+
+    private void Landmark_OnLandmarkTriggeredMessage(object sender, Landmark.OnLandmarkEventArgs e)
+    {
+        GameLogManager.Instance.Log($"LandmarkMessage/{e.id}");
     }
 }

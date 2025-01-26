@@ -15,4 +15,7 @@ public class SFXPool : ScriptableObject
     public AudioClip[] playerLand;
     [Space]
     public AudioClip[] playerBubbleAttach;
+
+    [Header("Others")]
+    public AudioClip[] landmark;
 }

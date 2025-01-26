@@ -13,11 +13,13 @@ public class Landmark : MonoBehaviour
     [SerializeField] private Rigidbody2D personRigidbody2D;
     [Space]
     [SerializeField] private float timeToTrigger;
+    [SerializeField] private float timeToTriggerMessage;
     [SerializeField] private float timeToTriggerEnd;
 
     private const string SET_FREE_TRIGGER = "SetFree";
 
     public static event EventHandler<OnLandmarkEventArgs> OnLandmarkTriggered;
+    public static event EventHandler<OnLandmarkEventArgs> OnLandmarkTriggeredMessage;
     public static event EventHandler<OnLandmarkEventArgs> OnLandmarkTriggeredEnd;
 
     public class OnLandmarkEventArgs
@@ -51,6 +53,10 @@ public class Landmark : MonoBehaviour
         if(personAnimator) personAnimator.SetTrigger(SET_FREE_TRIGGER);
         if(bubbleAnimator) bubbleAnimator.SetTrigger(SET_FREE_TRIGGER);
         personRigidbody2D.isKinematic = false;
+
+        yield return new WaitForSeconds(timeToTriggerMessage);
+
+        OnLandmarkTriggeredMessage?.Invoke(this, new OnLandmarkEventArgs { id = id });
 
         yield return new WaitForSeconds(timeToTriggerEnd);
 

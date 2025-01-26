@@ -13,6 +13,8 @@ public class PausableSFXManager : SFXManager
         PlayerDash.OnPlayerDash += PlayerDash_OnPlayerDash;
         PlayerLand.OnPlayerLand += PlayerLand_OnPlayerLand;
         PlayerBubbleHandler.OnBubbleAttach += PlayerBubbleHandler_OnBubbleAttach;
+
+        Landmark.OnLandmarkTriggered += Landmark_OnLandmarkTriggered;
     }
 
     private void OnDisable()
@@ -21,6 +23,8 @@ public class PausableSFXManager : SFXManager
         PlayerDash.OnPlayerDash -= PlayerDash_OnPlayerDash;
         PlayerLand.OnPlayerLand -= PlayerLand_OnPlayerLand;
         PlayerBubbleHandler.OnBubbleAttach -= PlayerBubbleHandler_OnBubbleAttach;
+
+        Landmark.OnLandmarkTriggered -= Landmark_OnLandmarkTriggered;
     }
 
     #region Singleton Settings
@@ -73,5 +77,10 @@ public class PausableSFXManager : SFXManager
     private void PlayerLand_OnPlayerLand(object sender, PlayerLand.OnPlayerLandEventArgs e)
     {
         PlaySound(SFXPool.playerLand);
+    }
+
+    private void Landmark_OnLandmarkTriggered(object sender, Landmark.OnLandmarkEventArgs e)
+    {
+        PlaySound(SFXPool.landmark);
     }
 }
