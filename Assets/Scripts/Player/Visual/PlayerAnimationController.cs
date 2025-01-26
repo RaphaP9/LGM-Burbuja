@@ -32,7 +32,7 @@ public class PlayerAnimationController : MonoBehaviour
 
         PlayerDash.OnPlayerDash += PlayerDash_OnPlayerDash;
         PlayerDash.OnPlayerDashStopped += PlayerDash_OnPlayerDashStopped;
-        PlayerBubbleHandler.OnBubbleAttach += PlayerBubbleHandler_OnBubbleAttach;
+        PlayerBubbleHandler.OnBubbleAttachPre += PlayerBubbleHandler_OnBubbleAttachPre;
     }
 
     private void OnDisable()
@@ -43,7 +43,7 @@ public class PlayerAnimationController : MonoBehaviour
 
         PlayerDash.OnPlayerDash -= PlayerDash_OnPlayerDash;
         PlayerDash.OnPlayerDashStopped -= PlayerDash_OnPlayerDashStopped;
-        PlayerBubbleHandler.OnBubbleAttach -= PlayerBubbleHandler_OnBubbleAttach;
+        PlayerBubbleHandler.OnBubbleAttachPre -= PlayerBubbleHandler_OnBubbleAttachPre;
     }
 
     private void Update()
@@ -96,12 +96,18 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void PlayerDash_OnPlayerDashStopped(object sender, PlayerDash.OnPlayerDashEventArgs e)
     {
+        if (playerBubbleHandler.IsOnBubble)
+        {
+            Debug.Log("A");
+            return;
+        }
+
         ResetTriggers();
         animator.Play(MOVEMENT_BLEND_TREE_NAME);
         Debug.Log("DashStopped");
     }
 
-    private void PlayerBubbleHandler_OnBubbleAttach(object sender, System.EventArgs e)
+    private void PlayerBubbleHandler_OnBubbleAttachPre(object sender, System.EventArgs e)
     {
         ResetTriggers();
         animator.Play(BUBBLE_ATTACH_ANIMATION_NAME);

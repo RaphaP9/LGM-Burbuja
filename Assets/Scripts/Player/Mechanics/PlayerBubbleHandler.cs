@@ -29,6 +29,7 @@ public class PlayerBubbleHandler : MonoBehaviour
     private float bubbleTimer;
     public float bubbleAttachCooldownTimer;
 
+    public static event EventHandler OnBubbleAttachPre;
     public static event EventHandler OnBubbleAttach;
     public static event EventHandler OnBubbleUnattach;
 
@@ -135,12 +136,14 @@ public class PlayerBubbleHandler : MonoBehaviour
     {
         if (BubbleAttachOnCooldown()) return;
 
-        OnBubbleAttach?.Invoke(this, EventArgs.Empty);
+        OnBubbleAttachPre?.Invoke(this, EventArgs.Empty);
 
         previousGravityScale = ORIGINAL_GRAVITY_SCALE;
         _rigidbody2D.gravityScale = 0f;
         SetCurrentBubble(e.bubble);
         IsOnBubble = true;
+
+        OnBubbleAttach?.Invoke(this, EventArgs.Empty);
 
         Debug.Log("Enter");
     }

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private State state;
     [SerializeField] private State previousState;
 
-    public enum State { OnGameplay, OnUI, OnLandmark}
+    public enum State { OnGameplay, OnUI, OnLandmark, OnWin}
 
     public State GameState => state;
 
@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
 
         Landmark.OnLandmarkTriggered += Landmark_OnLandmarkTriggered;
         Landmark.OnLandmarkTriggeredEnd += Landmark_OnLandmarkTriggeredEnd;
+
+        WinManager.OnWin += WinManager_OnWin;
     }
 
     private void OnDisable()
@@ -30,6 +32,8 @@ public class GameManager : MonoBehaviour
 
         Landmark.OnLandmarkTriggered -= Landmark_OnLandmarkTriggered;
         Landmark.OnLandmarkTriggeredEnd -= Landmark_OnLandmarkTriggeredEnd;
+
+        WinManager.OnWin -= WinManager_OnWin;
     }
 
     private void Awake()
@@ -87,6 +91,14 @@ public class GameManager : MonoBehaviour
     private void Landmark_OnLandmarkTriggeredEnd(object sender, Landmark.OnLandmarkEventArgs e)
     {
         SetGameState(State.OnGameplay);
+    }
+    #endregion
+
+    #region WinManager Subsciptions
+    private void WinManager_OnWin(object sender, System.EventArgs e)
+    {
+        SetGameState(State.OnWin);
+
     }
     #endregion
 }
