@@ -15,9 +15,9 @@ public class PlayerJump : MonoBehaviour
     [SerializeField] private MovementInput movementInput;
 
     [Header("Jump Settings")]
-    [SerializeField] private float jumpHeight = 5f;
-    [SerializeField] private float jumpHeightBubble = 5f;
-    [SerializeField] private float jumpHeightError = 0.05f;
+    [SerializeField,Range(1f,10f)] private float jumpHeight = 5f;
+    [SerializeField, Range(1f, 10f)] private float jumpHeightBubble = 5f;
+    [SerializeField,Range(0f,0.1f)] private float jumpHeightError = 0.05f;
     [SerializeField, Range(0f, 0.5f)] private float impulseTime = 0.2f;
     [SerializeField, Range(0f, 1.5f)] private float jumpCooldown = 1f;
     [SerializeField, Range(0f, 1.5f)] private float jumpCooldownGround = 1f;
@@ -56,12 +56,14 @@ public class PlayerJump : MonoBehaviour
     {
         PlayerLand.OnPlayerLand += PlayerLand_OnPlayerLand;
         PlayerBubbleHandler.OnBubbleAttach += PlayerBubbleHandler_OnBubbleAttach;
+        PlayerDash.OnPlayerDash += PlayerDash_OnPlayerDash;
     }
-
     private void OnDisable()
     {
         PlayerLand.OnPlayerLand -= PlayerLand_OnPlayerLand;
         PlayerBubbleHandler.OnBubbleAttach -= PlayerBubbleHandler_OnBubbleAttach;
+        PlayerDash.OnPlayerDash -= PlayerDash_OnPlayerDash;
+
     }
 
     private void Awake()
@@ -208,4 +210,10 @@ public class PlayerJump : MonoBehaviour
 
         nextJumpFromBubble = true;
     }
+
+    private void PlayerDash_OnPlayerDash(object sender, PlayerDash.OnPlayerDashEventArgs e)
+    {
+        if (e.fromBubble) nextJumpFromBubble = false;
+    }
+
 }

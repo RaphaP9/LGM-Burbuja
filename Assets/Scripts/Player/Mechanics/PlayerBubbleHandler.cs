@@ -12,7 +12,7 @@ public class PlayerBubbleHandler : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField, Range(0.01f, 100f)] private float smoothAtractionFactor;
-    [SerializeField] private float bubbleAttachCooldown;
+    [SerializeField,Range(0f,2f)] private float bubbleAttachCooldown;
 
     public bool IsOnBubble ;//{ get; private set; }
 
@@ -24,7 +24,7 @@ public class PlayerBubbleHandler : MonoBehaviour
     private Vector2 positionVector2;
 
     private float bubbleTimer;
-    private float bubbleAttachCooldownTimer;
+    public float bubbleAttachCooldownTimer;
 
     public static event EventHandler OnBubbleAttach;
     public static event EventHandler OnBubbleUnattach;

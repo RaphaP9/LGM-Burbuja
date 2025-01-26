@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2071705654016906257}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.02, z: 0}
+  m_LocalPosition: {x: 0, y: 1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 530247117
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b9ce0d18d581ef4499f8a34d3ba22d8a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a06ff780cfb9f6a47b73a79812a7a697, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -482,7 +482,7 @@ MonoBehaviour:
   checkGround: {fileID: 1114761904978054885}
   movementInput: {fileID: 0}
   jumpHeight: 3
-  jumpHeightBubble: 4
+  jumpHeightBubble: 6
   jumpHeightError: 0.05
   impulseTime: 0
   jumpCooldown: 0.15
@@ -543,7 +543,7 @@ MonoBehaviour:
   playerBubbleHandler: {fileID: 227676294834691716}
   movementInput: {fileID: 0}
   dashDistance: 6
-  dashDistanceFromBubble: 8
+  dashDistanceFromBubble: 9
   dashTime: 0.25
   dashTimeFromBubble: 0.25
   dashCooldown: 0.1
@@ -567,5 +567,7 @@ MonoBehaviour:
   playerGravityController: {fileID: 3181036805114513802}
   attachPoint: {fileID: 7293724272477361190}
   smoothAtractionFactor: 10
+  bubbleAttachCooldown: 0.5
   IsOnBubble: 0
   currentBubble: {fileID: 0}
+  bubbleAttachCooldownTimer: 0

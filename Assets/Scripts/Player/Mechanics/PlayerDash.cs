@@ -197,6 +197,8 @@ public class PlayerDash : MonoBehaviour
     private void PlayerJump_OnPlayerJump(object sender, PlayerJump.OnPlayerJumpEventArgs e)
     {
         StopDash();
+
+        if (e.fromBubble) nextDashFromBubble = false;
     }
 
     private void PlayerLand_OnPlayerLand(object sender, PlayerLand.OnPlayerLandEventArgs e)
