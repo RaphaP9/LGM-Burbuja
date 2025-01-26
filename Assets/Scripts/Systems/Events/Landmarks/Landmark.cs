@@ -9,6 +9,8 @@ public class Landmark : MonoBehaviour
     [SerializeField] private int id;
     [SerializeField] private string logToTrigger;
     [SerializeField] private Animator personAnimator;
+    [SerializeField] private Animator bubbleAnimator;
+    [SerializeField] private Rigidbody2D personRigidbody2D;
     [Space]
     [SerializeField] private float timeToTrigger;
     [SerializeField] private float timeToTriggerEnd;
@@ -47,6 +49,8 @@ public class Landmark : MonoBehaviour
         yield return new WaitForSeconds(timeToTrigger);
 
         if(personAnimator) personAnimator.SetTrigger(SET_FREE_TRIGGER);
+        if(bubbleAnimator) bubbleAnimator.SetTrigger(SET_FREE_TRIGGER);
+        personRigidbody2D.isKinematic = false;
 
         yield return new WaitForSeconds(timeToTriggerEnd);
 

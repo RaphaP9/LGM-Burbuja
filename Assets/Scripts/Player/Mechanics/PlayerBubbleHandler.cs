@@ -30,10 +30,15 @@ public class PlayerBubbleHandler : MonoBehaviour
     public float bubbleAttachCooldownTimer;
 
     public static event EventHandler OnBubbleAttachPre;
-    public static event EventHandler OnBubbleAttach;
-    public static event EventHandler OnBubbleUnattach;
+    public static event EventHandler<OnBubbleEventArgs> OnBubbleAttach;
+    public static event EventHandler<OnBubbleEventArgs> OnBubbleUnattach;
 
     private const float ORIGINAL_GRAVITY_SCALE = 1f;
+
+    public class OnBubbleEventArgs : EventArgs
+    {
+        public Bubble bubble;
+    }
 
     private void OnEnable()
     {
@@ -85,6 +90,8 @@ public class PlayerBubbleHandler : MonoBehaviour
 
     private void HandleReleaseBubble()
     {
+        Bubble previousBubble = currentBubble;
+
         if (!ReleaseInput) return;
 
         if (currentBubble == null) return;
@@ -95,7 +102,7 @@ public class PlayerBubbleHandler : MonoBehaviour
 
         ResetBubbleTimer();
 
-        OnBubbleUnattach?.Invoke(this, EventArgs.Empty);
+        OnBubbleUnattach?.Invoke(this, new OnBubbleEventArgs { bubble = previousBubble});
 
         Debug.Log("Exit");
 
@@ -143,13 +150,15 @@ public class PlayerBubbleHandler : MonoBehaviour
         SetCurrentBubble(e.bubble);
         IsOnBubble = true;
 
-        OnBubbleAttach?.Invoke(this, EventArgs.Empty);
+        OnBubbleAttach?.Invoke(this, new OnBubbleEventArgs { bubble = currentBubble});
 
         Debug.Log("Enter");
     }
 
     private void Bubble_OnBubbleReleased(object sender, Bubble.OnBubbleEventArgs e)
     {
+        Bubble previousBubble = currentBubble;
+
         if (currentBubble != e.bubble) return;
 
         _rigidbody2D.gravityScale = previousGravityScale;
@@ -158,7 +167,7 @@ public class PlayerBubbleHandler : MonoBehaviour
 
         ResetBubbleTimer();
 
-        OnBubbleUnattach?.Invoke(this, EventArgs.Empty);
+        OnBubbleUnattach?.Invoke(this, new OnBubbleEventArgs { bubble = previousBubble});
 
         Debug.Log("Exit");
 
@@ -169,6 +178,8 @@ public class PlayerBubbleHandler : MonoBehaviour
 
     private void PlayerJump_OnPlayerJump(object sender, PlayerJump.OnPlayerJumpEventArgs e)
     {
+        Bubble previousBubble = currentBubble;
+
         if (currentBubble == null) return;
 
         _rigidbody2D.gravityScale = previousGravityScale;
@@ -177,7 +188,7 @@ public class PlayerBubbleHandler : MonoBehaviour
 
         ResetBubbleTimer();
 
-        OnBubbleUnattach?.Invoke(this, EventArgs.Empty);
+        OnBubbleUnattach?.Invoke(this, new OnBubbleEventArgs { bubble = previousBubble});
 
         Debug.Log("Exit");
 
@@ -188,6 +199,8 @@ public class PlayerBubbleHandler : MonoBehaviour
 
     private void PlayerDash_OnPlayerDashPre(object sender, PlayerDash.OnPlayerDashEventArgs e)
     {
+        Bubble previousBubble = currentBubble;
+
         if (currentBubble == null) return;
 
         _rigidbody2D.gravityScale = previousGravityScale;
@@ -196,7 +209,7 @@ public class PlayerBubbleHandler : MonoBehaviour
 
         ResetBubbleTimer();
 
-        OnBubbleUnattach?.Invoke(this, EventArgs.Empty);
+        OnBubbleUnattach?.Invoke(this, new OnBubbleEventArgs { bubble = previousBubble });
 
         Debug.Log("Exit");
 
