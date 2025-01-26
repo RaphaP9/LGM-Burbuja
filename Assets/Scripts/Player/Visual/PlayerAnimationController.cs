@@ -28,7 +28,9 @@ public class PlayerAnimationController : MonoBehaviour
         PlayerJump.OnPlayerJump += PlayerJump_OnPlayerJump;
         PlayerFall.OnPlayerFall += PlayerFall_OnPlayerFall;
         PlayerLand.OnPlayerLand += PlayerLand_OnPlayerLand;
+
         PlayerDash.OnPlayerDash += PlayerDash_OnPlayerDash;
+        PlayerDash.OnPlayerDashStopped += PlayerDash_OnPlayerDashStopped;
         PlayerBubbleHandler.OnBubbleAttach += PlayerBubbleHandler_OnBubbleAttach;
     }
 
@@ -39,6 +41,7 @@ public class PlayerAnimationController : MonoBehaviour
         PlayerLand.OnPlayerLand -= PlayerLand_OnPlayerLand;
 
         PlayerDash.OnPlayerDash -= PlayerDash_OnPlayerDash;
+        PlayerDash.OnPlayerDashStopped -= PlayerDash_OnPlayerDashStopped;
         PlayerBubbleHandler.OnBubbleAttach -= PlayerBubbleHandler_OnBubbleAttach;
     }
 
@@ -86,6 +89,13 @@ public class PlayerAnimationController : MonoBehaviour
         ResetTriggers();
         animator.Play(DASH_ANIMATION_NAME);
         Debug.Log("Dash");
+    }
+
+    private void PlayerDash_OnPlayerDashStopped(object sender, PlayerDash.OnPlayerDashEventArgs e)
+    {
+        ResetTriggers();
+        animator.Play(MOVEMENT_BLEND_TREE_NAME);
+        Debug.Log("DashStopped");
     }
 
     private void PlayerBubbleHandler_OnBubbleAttach(object sender, System.EventArgs e)

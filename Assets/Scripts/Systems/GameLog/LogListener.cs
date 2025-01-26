@@ -6,16 +6,37 @@ public class LogListener : MonoBehaviour
 {
     private void OnEnable()
     {
-        
+        PlayerJump.OnPlayerJump += PlayerJump_OnPlayerJump;
+        PlayerDash.OnPlayerDash += PlayerDash_OnPlayerDash;
     }
 
     private void OnDisable()
     {
-
+        PlayerJump.OnPlayerJump -= PlayerJump_OnPlayerJump;
+        PlayerDash.OnPlayerDash -= PlayerDash_OnPlayerDash;
     }
 
-    private void SampleLog()
+    private void PlayerDash_OnPlayerDash(object sender, PlayerDash.OnPlayerDashEventArgs e)
     {
-        GameLogManager.Instance.Log("Sample/Log");
+        if (e.fromBubble)
+        {
+            GameLogManager.Instance.Log($"Movement/Dash/FromBubble");
+        }
+        else
+        {
+            GameLogManager.Instance.Log($"Movement/Dash/Regular");
+        }
+    }
+
+    private void PlayerJump_OnPlayerJump(object sender, PlayerJump.OnPlayerJumpEventArgs e)
+    {
+        if (e.fromBubble)
+        {
+            GameLogManager.Instance.Log($"Movement/Jump/FromBubble");
+        }
+        else
+        {
+            GameLogManager.Instance.Log($"Movement/Jump/Regular");
+        }
     }
 }
