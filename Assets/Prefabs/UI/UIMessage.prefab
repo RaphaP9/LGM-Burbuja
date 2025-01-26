@@ -187,8 +187,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 178635275814948595}
-  logToShow: Events/EventCollider/1
-  logToHide: Movement/Dash/Regular
+  logToShow: None
+  logToHide: None
 --- !u!1 &6752148504100595301
 GameObject:
   m_ObjectHideFlags: 0

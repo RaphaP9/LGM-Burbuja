@@ -567,7 +567,7 @@ MonoBehaviour:
   playerGravityController: {fileID: 3181036805114513802}
   attachPoint: {fileID: 7293724272477361190}
   smoothAtractionFactor: 10
-  bubbleAttachCooldown: 0.1
+  bubbleAttachCooldown: 0.13
   IsOnBubble: 0
   currentBubble: {fileID: 0}
   bubbleAttachCooldownTimer: 0

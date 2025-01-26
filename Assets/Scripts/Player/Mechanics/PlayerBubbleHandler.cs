@@ -29,6 +29,8 @@ public class PlayerBubbleHandler : MonoBehaviour
     public static event EventHandler OnBubbleAttach;
     public static event EventHandler OnBubbleUnattach;
 
+    private const float ORIGINAL_GRAVITY_SCALE = 1f;
+
     private void OnEnable()
     {
         Bubble.OnBubbleEnter += Bubble_OnBubbleEnter;
@@ -110,7 +112,7 @@ public class PlayerBubbleHandler : MonoBehaviour
 
         OnBubbleAttach?.Invoke(this, EventArgs.Empty);
 
-        previousGravityScale = _rigidbody2D.gravityScale;
+        previousGravityScale = ORIGINAL_GRAVITY_SCALE;
         _rigidbody2D.gravityScale = 0f;
         SetCurrentBubble(e.bubble);
         IsOnBubble = true;
