@@ -309,7 +309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   positionA: {fileID: 8991010535848326387}
   positionB: {fileID: 4746317270930539917}
-  movementSpeed: 5
+  movementSpeed: 3.5
   moveCurve:
     serializedVersion: 2
     m_Curve:

@@ -10,8 +10,9 @@ public class PlayerBubbleHandler : MonoBehaviour
     [SerializeField] private PlayerGravityController playerGravityController;
     [SerializeField] private Transform attachPoint;
 
-    [Header("Setting")]
+    [Header("Settings")]
     [SerializeField, Range(0.01f, 100f)] private float smoothAtractionFactor;
+    [SerializeField] private float bubbleAttachCooldown;
 
     public bool IsOnBubble ;//{ get; private set; }
 
@@ -23,6 +24,7 @@ public class PlayerBubbleHandler : MonoBehaviour
     private Vector2 positionVector2;
 
     private float bubbleTimer;
+    private float bubbleAttachCooldownTimer;
 
     public static event EventHandler OnBubbleAttach;
     public static event EventHandler OnBubbleUnattach;
@@ -55,9 +57,23 @@ public class PlayerBubbleHandler : MonoBehaviour
         ResetBubbleTimer();
     }
 
+    private void Update()
+    {
+        HandleBubbleAttachCooldown();
+    }
+
     private void FixedUpdate()
     {
         HandleBubbleCenterAtraction();
+    }
+
+    private void HandleBubbleAttachCooldown()
+    {
+        if (BubbleAttachOnCooldown())
+        {
+            bubbleAttachCooldownTimer -= Time.deltaTime;
+            return;
+        }
     }
 
     private void HandleBubbleCenterAtraction()
@@ -82,8 +98,16 @@ public class PlayerBubbleHandler : MonoBehaviour
     private void SetCurrentBubble(Bubble bubble) => currentBubble = bubble;
     
     private void ClearCurrentBubble() => currentBubble = null;
+    private void ResetBubbleTimer() => bubbleTimer = 0f;
+
+    private void ResetBubbleAttachCooldown() => bubbleAttachCooldownTimer = 0f;
+    private void SetBubbleAttachCooldown(float cooldown) => bubbleAttachCooldownTimer = cooldown;
+    private bool BubbleAttachOnCooldown() => bubbleAttachCooldownTimer > 0f;
+
     private void Bubble_OnBubbleEnter(object sender, Bubble.OnBubbleEventArgs e)
     {
+        if (BubbleAttachOnCooldown()) return;
+
         OnBubbleAttach?.Invoke(this, EventArgs.Empty);
 
         previousGravityScale = _rigidbody2D.gravityScale;
@@ -93,7 +117,6 @@ public class PlayerBubbleHandler : MonoBehaviour
 
         Debug.Log("Enter");
     }
-    private void ResetBubbleTimer() => bubbleTimer = 0f;
 
     private void Bubble_OnBubbleReleased(object sender, Bubble.OnBubbleEventArgs e)
     {
@@ -110,6 +133,8 @@ public class PlayerBubbleHandler : MonoBehaviour
         Debug.Log("Exit");
 
         playerGravityController.ResetYVelocity();
+
+        SetBubbleAttachCooldown(bubbleAttachCooldown);
     }
 
     private void PlayerJump_OnPlayerJump(object sender, PlayerJump.OnPlayerJumpEventArgs e)
@@ -127,6 +152,8 @@ public class PlayerBubbleHandler : MonoBehaviour
         Debug.Log("Exit");
 
         playerGravityController.ResetYVelocity();
+
+        SetBubbleAttachCooldown(bubbleAttachCooldown);
     }
 
     private void PlayerDash_OnPlayerDashPre(object sender, PlayerDash.OnPlayerDashEventArgs e)
@@ -144,6 +171,8 @@ public class PlayerBubbleHandler : MonoBehaviour
         Debug.Log("Exit");
 
         playerGravityController.ResetYVelocity();
+
+        SetBubbleAttachCooldown(bubbleAttachCooldown);
     }
 
 }

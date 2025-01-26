@@ -184,6 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 3482183892893183592}
+  playerMovement: {fileID: 2383293163072000536}
 --- !u!114 &1860355346045365412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -542,7 +543,7 @@ MonoBehaviour:
   playerBubbleHandler: {fileID: 227676294834691716}
   movementInput: {fileID: 0}
   dashDistance: 6
-  dashDistanceFromBubble: 6
+  dashDistanceFromBubble: 8
   dashTime: 0.25
   dashTimeFromBubble: 0.25
   dashCooldown: 0.1

@@ -138,7 +138,7 @@ public class PlayerDash : MonoBehaviour
         float dashForce = dashDistance / dashTime;
         float dashForceFromBubble = dashDistanceFromBubble / dashTimeFromBubble;
 
-        float desiredDashForce = nextDashFromBubble ? dashDistanceFromBubble : dashDistance;
+        float desiredDashForce = nextDashFromBubble ? dashForceFromBubble : dashForce;
 
         _rigidbody2D.velocity = new Vector2(currentDashDirection * desiredDashForce, 0f);
         IsDashing = true;
