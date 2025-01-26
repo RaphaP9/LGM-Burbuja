@@ -8,6 +8,6 @@ public interface IMovementInput
     public float GetMovementInputNormalized();
     public bool GetJumpDown();
     public bool GetJump();
-
     public bool GetDashDown();
+    public bool GetReleaseDown();
 }

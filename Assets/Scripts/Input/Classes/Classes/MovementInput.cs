@@ -27,4 +27,5 @@ public abstract class MovementInput : MonoBehaviour, IMovementInput
     public abstract bool GetJumpDown();
     public abstract bool GetJump();
     public abstract bool GetDashDown();
+    public abstract bool GetReleaseDown();
 }

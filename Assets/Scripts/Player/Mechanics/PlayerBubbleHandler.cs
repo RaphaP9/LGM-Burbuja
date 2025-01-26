@@ -9,10 +9,13 @@ public class PlayerBubbleHandler : MonoBehaviour
     [Header("Components")]
     [SerializeField] private PlayerGravityController playerGravityController;
     [SerializeField] private Transform attachPoint;
+    [SerializeField] private MovementInput movementInput;
 
     [Header("Settings")]
     [SerializeField, Range(0.01f, 100f)] private float smoothAtractionFactor;
     [SerializeField,Range(0f,2f)] private float bubbleAttachCooldown;
+
+    public bool ReleaseInput => movementInput.GetReleaseDown();
 
     public bool IsOnBubble ;//{ get; private set; }
 
@@ -62,6 +65,7 @@ public class PlayerBubbleHandler : MonoBehaviour
     private void Update()
     {
         HandleBubbleAttachCooldown();
+        HandleReleaseBubble();
     }
 
     private void FixedUpdate()
@@ -76,6 +80,27 @@ public class PlayerBubbleHandler : MonoBehaviour
             bubbleAttachCooldownTimer -= Time.deltaTime;
             return;
         }
+    }
+
+    private void HandleReleaseBubble()
+    {
+        if (!ReleaseInput) return;
+
+        if (currentBubble == null) return;
+
+        _rigidbody2D.gravityScale = previousGravityScale;
+        ClearCurrentBubble();
+        IsOnBubble = false;
+
+        ResetBubbleTimer();
+
+        OnBubbleUnattach?.Invoke(this, EventArgs.Empty);
+
+        Debug.Log("Exit");
+
+        playerGravityController.ResetYVelocity();
+
+        SetBubbleAttachCooldown(bubbleAttachCooldown);
     }
 
     private void HandleBubbleCenterAtraction()

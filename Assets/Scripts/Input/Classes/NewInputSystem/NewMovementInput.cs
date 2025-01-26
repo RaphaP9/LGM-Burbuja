@@ -64,4 +64,13 @@ public class NewMovementInput : MovementInput
 
         return input;
     }
+
+    public override bool GetReleaseDown()
+    {
+        if (!CanProcessInput()) return false;
+
+        bool input = playerInputActions.Movement.Release.WasPerformedThisFrame();
+
+        return input;
+    }
 }

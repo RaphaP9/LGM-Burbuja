@@ -7,6 +7,7 @@ public class PlayerAnimationController : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerBubbleHandler playerBubbleHandler;
 
     private const string JUMP_TRIGGER = "Jump";
     private const string FALL_TRIGGER = "Fall";
@@ -80,6 +81,8 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void PlayerLand_OnPlayerLand(object sender, PlayerLand.OnPlayerLandEventArgs e)
     {
+        if (playerBubbleHandler.IsOnBubble) return;
+
         ResetTriggers();
         animator.Play(MOVEMENT_BLEND_TREE_NAME);
         Debug.Log("Land");
