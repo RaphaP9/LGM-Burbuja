@@ -279,7 +279,7 @@ MonoBehaviour:
   capsuleCollider2D: {fileID: 4609553478311235101}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 65
   checkGroundYOffset: 0
   raySphereRadius: 0.25
   checkSlopeRayLength: 0.2
@@ -567,7 +567,7 @@ MonoBehaviour:
   playerGravityController: {fileID: 3181036805114513802}
   attachPoint: {fileID: 7293724272477361190}
   smoothAtractionFactor: 10
-  bubbleAttachCooldown: 0.5
+  bubbleAttachCooldown: 0.1
   IsOnBubble: 0
   currentBubble: {fileID: 0}
   bubbleAttachCooldownTimer: 0
