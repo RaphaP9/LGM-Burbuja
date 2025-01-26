@@ -25,6 +25,7 @@ public class NewMovementInput : MovementInput
 
     public override bool CanProcessInput()
     {
+        if (GameManager.Instance.GameState != GameManager.State.OnGameplay) return false;
         return true;
     }
 

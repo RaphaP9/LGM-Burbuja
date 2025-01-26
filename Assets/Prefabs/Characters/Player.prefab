@@ -549,7 +549,7 @@ MonoBehaviour:
   dashCooldown: 0.1
   dashResistance: 30
   disableGravity: 1
-  dashLimit: 1
+  dashLimit: 0
   resetDashesOnBubble: 1
   dashesPerformed: 0
 --- !u!114 &227676294834691716

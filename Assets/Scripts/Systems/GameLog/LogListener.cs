@@ -7,6 +7,7 @@ public class LogListener : MonoBehaviour
     private void OnEnable()
     {
         EventCollider.OnEventColliderTrigger += EventCollider_OnEventColliderTrigger;
+        Landmark.OnLandmarkTriggered += Landmark_OnLandmarkTriggered;
 
         PlayerJump.OnPlayerJump += PlayerJump_OnPlayerJump;
         PlayerDash.OnPlayerDash += PlayerDash_OnPlayerDash;
@@ -14,7 +15,8 @@ public class LogListener : MonoBehaviour
 
     private void OnDisable()
     {
-        EventCollider.OnEventColliderTrigger += EventCollider_OnEventColliderTrigger;
+        EventCollider.OnEventColliderTrigger -= EventCollider_OnEventColliderTrigger;
+        Landmark.OnLandmarkTriggered -= Landmark_OnLandmarkTriggered;
 
         PlayerJump.OnPlayerJump -= PlayerJump_OnPlayerJump;
         PlayerDash.OnPlayerDash -= PlayerDash_OnPlayerDash;
@@ -47,5 +49,10 @@ public class LogListener : MonoBehaviour
     private void EventCollider_OnEventColliderTrigger(object sender, EventCollider.OnEventColliderTriggerEventArgs e)
     {
         GameLogManager.Instance.Log($"Events/EventCollider/{e.eventID}");
+    }
+    private void Landmark_OnLandmarkTriggered(object sender, Landmark.OnLandmarkEventArgs e)
+    {
+        GameLogManager.Instance.Log($"Landmark/{e.id}");
+
     }
 }
