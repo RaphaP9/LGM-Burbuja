@@ -12,5 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7354bece74fa22c4a8b90a69f49bd718, type: 3}
   m_Name: SFXPool
   m_EditorClassIdentifier: 
-  bubbleExplode:
-  - {fileID: 8300000, guid: 4b89a2945cdec9a4d99652d87a8046cb, type: 3}
+  playerJump:
+  - {fileID: 8300000, guid: a30245cb153288242bf890a6d7ac88af, type: 3}
+  playerJumpFromBubble:
+  - {fileID: 8300000, guid: 8e9d7f2ff601b3e4481eb4b0beb62276, type: 3}
+  playerDash:
+  - {fileID: 8300000, guid: 091a123e8dab10a41864acaff53a89de, type: 3}
+  playerDashFromBubble:
+  - {fileID: 8300000, guid: 3768aa43900de6240a3c386eaff559e7, type: 3}
+  playerLand:
+  - {fileID: 8300000, guid: da2e191b92cb797429f03d3e690846a4, type: 3}
+  playerBubbleAttach:
+  - {fileID: 8300000, guid: 878ce623093914f4f94cbce7bb2e76eb, type: 3}

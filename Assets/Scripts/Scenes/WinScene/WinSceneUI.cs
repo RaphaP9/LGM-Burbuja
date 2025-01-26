@@ -7,6 +7,7 @@ public class WinSceneUI : MonoBehaviour
 {
     [Header("Buttons")]
     [SerializeField] private Button menuButton;
+    [SerializeField] private Button quitButton;
 
     [Header("Scenes")]
     [SerializeField] private string menuScene;
@@ -19,7 +20,10 @@ public class WinSceneUI : MonoBehaviour
     private void InitializeButtonsListeners()
     {
         menuButton.onClick.AddListener(LoadMenuScene);
+        quitButton.onClick.AddListener(QuitGame);
     }
 
     private void LoadMenuScene() => ScenesManager.Instance.FadeLoadTargetScene(menuScene);
+    private void QuitGame() => Application.Quit();
+
 }

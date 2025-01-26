@@ -98,7 +98,6 @@ public class PlayerAnimationController : MonoBehaviour
     {
         if (playerBubbleHandler.IsOnBubble)
         {
-            Debug.Log("A");
             return;
         }
 

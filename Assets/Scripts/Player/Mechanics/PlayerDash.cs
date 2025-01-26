@@ -48,7 +48,7 @@ public class PlayerDash : MonoBehaviour
     public static event EventHandler<OnPlayerDashEventArgs> OnPlayerDashPre;
     public static event EventHandler<OnPlayerDashEventArgs> OnPlayerDashStopped;
 
-    private bool nextDashFromBubble = false;
+    public bool nextDashFromBubble = false;
     public class OnPlayerDashEventArgs : EventArgs
     {
         public float dashDirection;
@@ -214,11 +214,15 @@ public class PlayerDash : MonoBehaviour
     {
         StopDash();
 
-        if (e.fromBubble) nextDashFromBubble = false;
+        if (e.fromBubble) 
+        {
+            nextDashFromBubble = false;
+        }
     }
 
     private void PlayerLand_OnPlayerLand(object sender, PlayerLand.OnPlayerLandEventArgs e)
     {
+        if (playerBubbleHandler.IsOnBubble) return;
         nextDashFromBubble = false;
     }
 
@@ -231,7 +235,6 @@ public class PlayerDash : MonoBehaviour
         SetDashCooldownTimer(dashCooldown);
 
         nextDashFromBubble = true;
-
     }
 
     public void UnlockDash() => dashLimit = 1;
