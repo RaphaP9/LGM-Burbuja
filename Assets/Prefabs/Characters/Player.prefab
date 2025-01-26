@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8205783859068658469}
   - component: {fileID: 782771145643557731}
+  - component: {fileID: 3482183892893183592}
   m_Layer: 0
-  m_Name: Compa
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,6 +85,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &3482183892893183592
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071705654016906257}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cdbd993455b82884f811f8df56eea3a8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2875187241943464047
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,6 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e9e252a759eea542b4221240cd89b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 3482183892893183592}
 --- !u!114 &1860355346045365412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,7 +542,9 @@ MonoBehaviour:
   playerBubbleHandler: {fileID: 227676294834691716}
   movementInput: {fileID: 0}
   dashDistance: 6
+  dashDistanceFromBubble: 6
   dashTime: 0.25
+  dashTimeFromBubble: 0.25
   dashCooldown: 0.1
   dashResistance: 30
   disableGravity: 1
