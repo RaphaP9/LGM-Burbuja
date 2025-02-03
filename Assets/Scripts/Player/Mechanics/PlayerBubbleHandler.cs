@@ -13,13 +13,14 @@ public class PlayerBubbleHandler : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField, Range(0.01f, 100f)] private float smoothAtractionFactor;
-    [SerializeField,Range(0f,2f)] private float bubbleAttachCooldown;
+    [SerializeField,Range(0f,2f)] private float previousBubbleAttachCooldown;
 
     public bool ReleaseInput => movementInput.GetReleaseDown();
 
     public bool IsOnBubble ;//{ get; private set; }
 
     public Bubble currentBubble;
+    public Bubble previousBubble;
 
     private float previousGravityScale;
 
@@ -27,7 +28,7 @@ public class PlayerBubbleHandler : MonoBehaviour
     private Vector2 positionVector2;
 
     private float bubbleTimer;
-    public float bubbleAttachCooldownTimer;
+    public float previousBubbleAttachCooldownTimer;
 
     public static event EventHandler OnBubbleAttachPre;
     public static event EventHandler<OnBubbleEventArgs> OnBubbleAttach;
@@ -70,7 +71,8 @@ public class PlayerBubbleHandler : MonoBehaviour
 
     private void Update()
     {
-        HandleBubbleAttachCooldown();
+        HandlePreviousBubbleAttachCooldown();
+
         HandleReleaseBubble();
     }
 
@@ -79,11 +81,11 @@ public class PlayerBubbleHandler : MonoBehaviour
         HandleBubbleCenterAtraction();
     }
 
-    private void HandleBubbleAttachCooldown()
+    private void HandlePreviousBubbleAttachCooldown()
     {
-        if (BubbleAttachOnCooldown())
+        if (PreviousBubbleAttachOnCooldown())
         {
-            bubbleAttachCooldownTimer -= Time.deltaTime;
+            previousBubbleAttachCooldownTimer -= Time.deltaTime;
             return;
         }
     }
@@ -108,7 +110,7 @@ public class PlayerBubbleHandler : MonoBehaviour
 
         playerGravityController.ResetYVelocity();
 
-        SetBubbleAttachCooldown(bubbleAttachCooldown);
+        SetPreviousBubbleAttachCooldown(previousBubbleAttachCooldown);
     }
 
     private void HandleBubbleCenterAtraction()
@@ -130,84 +132,27 @@ public class PlayerBubbleHandler : MonoBehaviour
         return targetPosition;
     }
 
-    private void SetCurrentBubble(Bubble bubble) => currentBubble = bubble;
-    
+    private void SetCurrentBubble(Bubble bubble) => currentBubble = bubble; 
     private void ClearCurrentBubble() => currentBubble = null;
+    private void SetPreviousBubble(Bubble bubble) => previousBubble = bubble;
+    private void ClearPreviousBubble() => previousBubble = null;
     private void ResetBubbleTimer() => bubbleTimer = 0f;
 
-    private void ResetBubbleAttachCooldown() => bubbleAttachCooldownTimer = 0f;
-    private void SetBubbleAttachCooldown(float cooldown) => bubbleAttachCooldownTimer = cooldown;
-    private bool BubbleAttachOnCooldown() => bubbleAttachCooldownTimer > 0f;
+    private void ResetPreviousBubbleAttachCooldown() => previousBubbleAttachCooldownTimer = 0f;
+    private void SetPreviousBubbleAttachCooldown(float cooldown) => previousBubbleAttachCooldownTimer = cooldown;
+    private bool PreviousBubbleAttachOnCooldown() => previousBubbleAttachCooldownTimer > 0f;
 
-    private void Bubble_OnBubbleEnter(object sender, Bubble.OnBubbleEventArgs e)
+    private void UnatachFromBubble()
     {
-        if (BubbleAttachOnCooldown()) return;
-
-        OnBubbleAttachPre?.Invoke(this, EventArgs.Empty);
-
-        previousGravityScale = ORIGINAL_GRAVITY_SCALE;
-        _rigidbody2D.gravityScale = 0f;
-        SetCurrentBubble(e.bubble);
-        IsOnBubble = true;
-
-        OnBubbleAttach?.Invoke(this, new OnBubbleEventArgs { bubble = currentBubble});
-
-        Debug.Log("Enter");
-    }
-
-    private void Bubble_OnBubbleReleased(object sender, Bubble.OnBubbleEventArgs e)
-    {
-        Bubble previousBubble = currentBubble;
-
-        if (currentBubble != e.bubble) return;
-
-        _rigidbody2D.gravityScale = previousGravityScale;
-        ClearCurrentBubble();
-        IsOnBubble = false;
-
-        ResetBubbleTimer();
-
-        OnBubbleUnattach?.Invoke(this, new OnBubbleEventArgs { bubble = previousBubble});
-
-        Debug.Log("Exit");
-
-        playerGravityController.ResetYVelocity();
-
-        SetBubbleAttachCooldown(bubbleAttachCooldown);
-    }
-
-    private void PlayerJump_OnPlayerJump(object sender, PlayerJump.OnPlayerJumpEventArgs e)
-    {
-        Bubble previousBubble = currentBubble;
-
         if (currentBubble == null) return;
 
-        _rigidbody2D.gravityScale = previousGravityScale;
+        SetPreviousBubble(currentBubble);
         ClearCurrentBubble();
-        IsOnBubble = false;
 
         ResetBubbleTimer();
 
-        OnBubbleUnattach?.Invoke(this, new OnBubbleEventArgs { bubble = previousBubble});
-
-        Debug.Log("Exit");
-
-        playerGravityController.ResetYVelocity();
-
-        SetBubbleAttachCooldown(bubbleAttachCooldown);
-    }
-
-    private void PlayerDash_OnPlayerDashPre(object sender, PlayerDash.OnPlayerDashEventArgs e)
-    {
-        Bubble previousBubble = currentBubble;
-
-        if (currentBubble == null) return;
-
         _rigidbody2D.gravityScale = previousGravityScale;
-        ClearCurrentBubble();
         IsOnBubble = false;
-
-        ResetBubbleTimer();
 
         OnBubbleUnattach?.Invoke(this, new OnBubbleEventArgs { bubble = previousBubble });
 
@@ -215,7 +160,67 @@ public class PlayerBubbleHandler : MonoBehaviour
 
         playerGravityController.ResetYVelocity();
 
-        SetBubbleAttachCooldown(bubbleAttachCooldown);
+        SetPreviousBubbleAttachCooldown(previousBubbleAttachCooldown);
     }
 
+    private void ReleaseFromBubble(Bubble.OnBubbleEventArgs e)
+    {
+        if (currentBubble != e.bubble) return;
+
+        SetPreviousBubble(currentBubble);
+        ClearCurrentBubble();
+
+        ResetBubbleTimer();
+
+        _rigidbody2D.gravityScale = previousGravityScale;
+        IsOnBubble = false;
+
+        OnBubbleUnattach?.Invoke(this, new OnBubbleEventArgs { bubble = previousBubble });
+
+        Debug.Log("Exit");
+
+        playerGravityController.ResetYVelocity();
+
+        SetPreviousBubbleAttachCooldown(previousBubbleAttachCooldown);
+    }
+
+
+    #region Subscriptions
+    private void Bubble_OnBubbleEnter(object sender, Bubble.OnBubbleEventArgs e)
+    {
+        EnterBubble(e);
+    }
+
+    private void EnterBubble(Bubble.OnBubbleEventArgs e)
+    {
+        if (PreviousBubbleAttachOnCooldown() && e.bubble == previousBubble) return;
+
+        SetCurrentBubble(e.bubble);
+
+        OnBubbleAttachPre?.Invoke(this, EventArgs.Empty);
+
+        previousGravityScale = ORIGINAL_GRAVITY_SCALE;
+        _rigidbody2D.gravityScale = 0f;
+        IsOnBubble = true;
+
+        OnBubbleAttach?.Invoke(this, new OnBubbleEventArgs { bubble = currentBubble });
+
+        Debug.Log("Enter");
+    }
+
+    private void Bubble_OnBubbleReleased(object sender, Bubble.OnBubbleEventArgs e)
+    {
+        ReleaseFromBubble(e);
+    }
+
+    private void PlayerJump_OnPlayerJump(object sender, PlayerJump.OnPlayerJumpEventArgs e)
+    {
+        UnatachFromBubble();
+    }
+
+    private void PlayerDash_OnPlayerDashPre(object sender, PlayerDash.OnPlayerDashEventArgs e)
+    {
+        UnatachFromBubble();
+    }
+    #endregion
 }

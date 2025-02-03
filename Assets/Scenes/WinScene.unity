@@ -538,7 +538,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b094e1c97993dae4e848568c6a361ed4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2256a8775c14eab46aee6f0d5b9d220a, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -789,7 +789,7 @@ GameObject:
   - component: {fileID: 1544188325}
   - component: {fileID: 1544188324}
   m_Layer: 0
-  m_Name: Compa
+  m_Name: Girl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

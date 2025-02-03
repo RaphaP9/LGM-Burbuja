@@ -112,7 +112,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""753f6437-b966-41c3-b9cc-dc0f9b261f3d"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

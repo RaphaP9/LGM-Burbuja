@@ -487,9 +487,9 @@ GameObject:
   - component: {fileID: 2383293163072000536}
   - component: {fileID: 3181036805114513802}
   - component: {fileID: 7684306869517479420}
+  - component: {fileID: 3290144798974216237}
   - component: {fileID: 8074363247328949765}
   - component: {fileID: 3696991590922748123}
-  - component: {fileID: 3290144798974216237}
   - component: {fileID: 227676294834691716}
   m_Layer: 7
   m_Name: Player
@@ -658,6 +658,35 @@ MonoBehaviour:
   jumpLimit: 1
   resetJumpsOnBubble: 1
   jumpsPerformed: 0
+  nextJumpFromBubble: 0
+--- !u!114 &3290144798974216237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8919385773536105792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8614593f39f94f64284bce9fd94cb59b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashEnabled: 1
+  checkGround: {fileID: 1114761904978054885}
+  playerMovement: {fileID: 2383293163072000536}
+  playerBubbleHandler: {fileID: 227676294834691716}
+  movementInput: {fileID: 0}
+  dashDistance: 8
+  dashDistanceFromBubble: 10
+  dashTime: 0.25
+  dashTimeFromBubble: 0.25
+  dashCooldown: 0.1
+  dashResistance: 30
+  disableGravity: 1
+  dashLimit: 0
+  resetDashesOnBubble: 1
+  dashesPerformed: 0
+  nextDashFromBubble: 0
 --- !u!114 &8074363247328949765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -692,33 +721,6 @@ MonoBehaviour:
   playerGravityController: {fileID: 3181036805114513802}
   landDetectionHeightThreshold: 0.1
   landRecoveryTime: 0
---- !u!114 &3290144798974216237
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8919385773536105792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8614593f39f94f64284bce9fd94cb59b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dashEnabled: 1
-  checkGround: {fileID: 1114761904978054885}
-  playerMovement: {fileID: 2383293163072000536}
-  playerBubbleHandler: {fileID: 227676294834691716}
-  movementInput: {fileID: 0}
-  dashDistance: 8
-  dashDistanceFromBubble: 10
-  dashTime: 0.25
-  dashTimeFromBubble: 0.25
-  dashCooldown: 0.1
-  dashResistance: 30
-  disableGravity: 1
-  dashLimit: 0
-  resetDashesOnBubble: 1
-  dashesPerformed: 0
 --- !u!114 &227676294834691716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -735,7 +737,8 @@ MonoBehaviour:
   attachPoint: {fileID: 7293724272477361190}
   movementInput: {fileID: 0}
   smoothAtractionFactor: 10
-  bubbleAttachCooldown: 0.13
+  previousBubbleAttachCooldown: 0.5
   IsOnBubble: 0
   currentBubble: {fileID: 0}
-  bubbleAttachCooldownTimer: 0
+  previousBubble: {fileID: 0}
+  previousBubbleAttachCooldownTimer: 0
