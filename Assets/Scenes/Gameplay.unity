@@ -2713,6 +2713,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 12.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6061378060824305612, guid: e65022d5d323fc848832a0a4297ccff4, type: 3}
+      propertyPath: movementSpeed
+      value: 5.075
+      objectReference: {fileID: 0}
     - target: {fileID: 7912139467608386918, guid: e65022d5d323fc848832a0a4297ccff4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7507,7 +7511,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5984557553285159870, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_text
-      value: Let yourself go
+      value: Dejate llevar
       objectReference: {fileID: 0}
     - target: {fileID: 5984557553285159870, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -7519,15 +7523,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 58.211075
+      value: 54.5
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -70.09991
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.6875503
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11321,15 +11325,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 48.211075
+      value: 44.5
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 29.400093
+      value: 126.5
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.6875503
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -32259,7 +32263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5984557553285159870, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_text
-      value: Press Shift to dash
+      value: "Presiona Shift \npara deslizar"
       objectReference: {fileID: 0}
     - target: {fileID: 5984557553285159870, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -32271,15 +32275,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 43.711075
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -48.099907
+      value: 49
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.6875503
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -44234,15 +44238,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 25.211075
+      value: 21.5
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -42.099907
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.6875503
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -45570,9 +45574,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5984557553285159870, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_text
-      value: 'Combining your abilities
+      value: 'Combinar tus habilidades
 
-        is the key to success'
+        es la clave del exito'
       objectReference: {fileID: 0}
     - target: {fileID: 5984557553285159870, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -45584,15 +45588,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 56.211075
+      value: 52.5
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -14.099907
+      value: 83
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.6875503
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -45620,6 +45624,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8501265590909526429, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
+      propertyPath: m_Alpha
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -61959,7 +61967,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5984557553285159870, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_text
-      value: Press Space to jump
+      value: "Presiona Espacio \npara saltar"
       objectReference: {fileID: 0}
     - target: {fileID: 5984557553285159870, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -61971,15 +61979,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.211076
+      value: 9.5
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -96.09991
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.6875503
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -73011,7 +73019,7 @@ Transform:
   m_GameObject: {fileID: 2120805979}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.7110758, y: 97.09991, z: 0.6875503}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -73764,9 +73772,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5984557553285159870, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_text
-      value: 'You can get
-
-        inside bubbles'
+      value: "Puedes subirte a \nlas burbujas"
       objectReference: {fileID: 0}
     - target: {fileID: 5984557553285159870, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -73778,15 +73784,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 26.711075
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -89.09991
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.6875503
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -73814,6 +73820,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8501265590909526429, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
+      propertyPath: m_Alpha
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -74059,7 +74069,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5984557553285159870, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_text
-      value: Use A & D to move
+      value: "Presiona A y D \npara moverte"
       objectReference: {fileID: 0}
     - target: {fileID: 5984557553285159870, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_fontSizeBase
@@ -74071,15 +74081,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.7889242
+      value: -7.5
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -96.09991
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.6875503
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7567340444225605777, guid: 4029860b426ccfc429df4d830a4ba9a0, type: 3}
       propertyPath: m_LocalRotation.w
